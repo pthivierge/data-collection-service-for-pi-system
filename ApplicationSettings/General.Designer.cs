@@ -52,7 +52,7 @@ namespace FDS.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("fb95c1bf08e28a8665b3f48efdd9e346")]
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_KEY_HERE")]
         public string AppConsumerKey {
             get {
                 return ((string)(this["AppConsumerKey"]));
@@ -61,7 +61,7 @@ namespace FDS.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("1ff76ecbf83fab8768b7ea826aca26a9")]
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_SECRET_HERE")]
         public string AppConsumerSecret {
             get {
                 return ((string)(this["AppConsumerSecret"]));
