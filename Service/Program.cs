@@ -15,18 +15,21 @@ namespace FDS.Service
         /// </summary>
         private static void Main(string[] args)
         {
+           
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
 
             if (Environment.UserInteractive)
             {
+                _logger.Info("Starting service interractively");
+
                 string parameter = string.Concat(args);
                 switch (parameter)
                 {
                     case "--install":
-                        ManagedInstallerClass.InstallHelper(new[] {Assembly.GetExecutingAssembly().Location});
+                        ManagedInstallerClass.InstallHelper(new[] { Assembly.GetExecutingAssembly().Location });
                         break;
                     case "--uninstall":
-                        ManagedInstallerClass.InstallHelper(new[] {"/u", Assembly.GetExecutingAssembly().Location});
+                        ManagedInstallerClass.InstallHelper(new[] { "/u", Assembly.GetExecutingAssembly().Location });
                         break;
                 }
             }

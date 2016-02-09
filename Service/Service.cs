@@ -2,6 +2,8 @@ using System;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
+using FDS.Core;
+using FDS.Core.DataReaders;
 using FDS.Core.Scheduler;
 using log4net;
 using FDS.Settings;
@@ -12,13 +14,15 @@ namespace FDS.Service
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof (Service));
 
-        /// Scheduler that handles exact time scheduling
-        private readonly CronScheduler _scheduler = new CronScheduler();
+        ConfigurationManager _configurationManager;
+        DataWriter _dataWriter;
+        DataReadersManager _dataReadersManager;
+
 
         #region Constructors
 
         /// <summary>
-        ///     constructeur du service
+        ///     Service Constructor
         ///     Fist byte of code called when service is started
         /// </summary>
         public Service()
@@ -76,9 +80,9 @@ namespace FDS.Service
                 base.OnStart(args);
 
                 // put your startup service code here:
-
-                _logger.Info("Service is Started.");
                 InitService();
+                _logger.Info("Service is Started.");
+                
             }
             catch (Exception exception)
             {
@@ -88,12 +92,23 @@ namespace FDS.Service
 
         private void InitService()
         {
-            
+            _configurationManager = new ConfigurationManager();
+            _dataReadersManager= new DataReadersManager();
+            _dataWriter =new DataWriter();
+
+            _configurationManager.Start();
+            _dataReadersManager.Start();
+            _dataWriter.Start();
+
         }
 
         protected override void OnStop()
         {
             // your code here
+
+            _configurationManager.Stop();
+            _dataReadersManager.Stop();
+            _dataWriter.Stop();
 
             base.OnStop();
             _logger.Info("Service Stopped.");
