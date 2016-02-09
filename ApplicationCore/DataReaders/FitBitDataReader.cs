@@ -6,6 +6,7 @@ using Fitbit.Api;
 using Fitbit.Models;
 using log4net;
 using OSIsoft.AF.Asset;
+using OSIsoft.AF.Time;
 
 namespace FDS.Core.DataReaders
 {
@@ -41,10 +42,10 @@ namespace FDS.Core.DataReaders
 
             try
             {
-                _logger.InfoFormat("Starting data collection for device: {0} ",_deviceElement.Name);
+                _logger.InfoFormat("Starting data collection for device: {0} ", _deviceElement.Name);
 
-                DateTime startTime=DateTime.Today-TimeSpan.FromDays(30);
-                DateTime endTime=DateTime.Now;
+                DateTime startTime = DateTime.Today - TimeSpan.FromDays(30);
+                DateTime endTime = DateTime.Now;
 
                 string authToken = (string)_deviceElement.Attributes["AuthToken"].GetValue().Value;
                 string authTokenSecret = (string)_deviceElement.Attributes["AuthTokenSecret"].GetValue().Value;
@@ -59,7 +60,35 @@ namespace FDS.Core.DataReaders
                 // user profile is not used for the time being
                 // var userProfile = fitBitClient.GetUserProfile();
 
-                // avtivity
+
+                // check the last time the device was updated
+                var fitBitDevices = fitBitClient.GetDevices();
+                var fitBitLastSync = AFTime.MinValue.LocalTime;
+                if (fitBitDevices != null)
+                {
+                    
+                    foreach (var fitBitDevice in fitBitDevices)
+                    {
+                        if (fitBitLastSync < fitBitDevice.LastSyncTime)
+                            fitBitLastSync = fitBitDevice.LastSyncTime;
+                    }
+
+                    // The value attribute we get from an AFValue is an object.  In case there is no value yet in it
+                    // the value can be of type AFEnumerationSets - so we check to make sure the value is date.
+                    var afLastSync = _deviceElement.Attributes["LastSync"].GetValue().Value;
+                    if (afLastSync is DateTime)
+                    {
+                        if ((DateTime)afLastSync >= fitBitLastSync)
+                        {
+                            _logger.InfoFormat("{0} will not be updated, last sync time is greater or equal the fitbit last sync time ", _deviceElement.Name, valuesCount);
+                            return true; // if syncdate has not changed since last sync, we don't update.
+                        }
+
+
+                    }
+                }
+
+                // activity
                 //  --- active hours is calculated - so not here
                 AFElement activityElement = _deviceElement.Elements["Activity"];
                 CollectAndSaveData(fitBitClient, startTime, endTime, activityElement, TimeSeriesResourceType.CaloriesOut, "Calories");
@@ -80,21 +109,27 @@ namespace FDS.Core.DataReaders
                 CollectAndSaveData(fitBitClient, startTime, endTime, sleepElement, TimeSeriesResourceType.SleepEfficiency, "Sleep efficiency");
                 CollectAndSaveData(fitBitClient, startTime, endTime, sleepElement, TimeSeriesResourceType.TimeEnteredBed, "Time entered bed");
                 CollectAndSaveData(fitBitClient, startTime, endTime, sleepElement, TimeSeriesResourceType.TimeInBed, "Time spent in bed");
-                
-                _logger.InfoFormat("Completed data collection for device: {0} - read {1} values.", _deviceElement.Name,valuesCount);
+
+                // updating last sync value
+                var attribute = _deviceElement.Attributes["LastSync"];
+                var value = new AFValue(attribute, fitBitLastSync, DateTime.Now);
+                var list = new List<AFValue>();
+                list.Add(value);
+                SharedData.DataQueue.Enqueue(list);
+
+                _logger.InfoFormat("Completed data collection for device: {0} - read {1} values.", _deviceElement.Name, valuesCount);
                 success = true;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                _logger.Error(ex);
             }
 
             return success;
         }
 
-        private void CollectAndSaveData(FitbitClient fitBitClient,DateTime startTime,DateTime endTime, AFElement deviceElement, TimeSeriesResourceType type,string attributeName)
+        private void CollectAndSaveData(FitbitClient fitBitClient, DateTime startTime, DateTime endTime, AFElement deviceElement, TimeSeriesResourceType type, string attributeName)
         {
             var fitBitData = fitBitClient.GetTimeSeries(type, startTime, endTime);
             AFValues values = Helpers.FitBitHelpers.ConvertToAFValues(fitBitData, type, deviceElement, attributeName);
