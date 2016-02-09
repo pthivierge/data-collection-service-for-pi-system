@@ -32,6 +32,8 @@ namespace FDS.Service
                         ManagedInstallerClass.InstallHelper(new[] { "/u", Assembly.GetExecutingAssembly().Location });
                         break;
                 }
+
+                
             }
             else
             {
