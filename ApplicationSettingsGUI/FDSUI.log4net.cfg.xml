@@ -1,0 +1,21 @@
+<log4net>
+
+  <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
+    <file value="Logs\FDSServiceConfiguratorGUI.Log" />
+    <threshold value="ALL" />
+    <appendToFile value="true" />
+    <rollingStyle value="Composite" />
+    <maximumFileSize value="1MB" />
+    <maxSizeRollBackups value="10" />
+    <datePattern value="yyyyMMdd" />
+    <layout type="log4net.Layout.PatternLayout">
+      <conversionPattern value="*%-10level %-30date %message [%logger] [%thread] %newline" />
+    </layout>
+  </appender>
+
+  <root>
+    <level value="ALL" />
+    <appender-ref ref="RollingFile" />
+  </root>
+
+</log4net>

@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FDS.Settings" GeneratedClassName="General">
+  <Profiles />
+  <Settings>
+    <Setting Name="AFServerName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">megatron</Value>
+    </Setting>
+    <Setting Name="AFDatabaseName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">FitBit</Value>
+    </Setting>
+    <Setting Name="AFTemplateForFitBit" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">FitBit Device Template</Value>
+    </Setting>
+    <Setting Name="AppConsumerKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">fb95c1bf08e28a8665b3f48efdd9e346</Value>
+    </Setting>
+    <Setting Name="AppConsumerSecret" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">1ff76ecbf83fab8768b7ea826aca26a9</Value>
+    </Setting>
+    <Setting Name="Readers_DataUpdateFrequency_s" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">20</Value>
+    </Setting>
+    <Setting Name="Configuration_UpdateFreq_s" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">3600</Value>
+    </Setting>
+    <Setting Name="DataWriter_SleepDelay_s" Type="System.Int32" Scope="Application">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>
