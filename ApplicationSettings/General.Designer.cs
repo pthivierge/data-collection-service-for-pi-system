@@ -70,7 +70,7 @@ namespace FDS.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("20")]
+        [global::System.Configuration.DefaultSettingValueAttribute("28133")]
         public int Readers_DataUpdateFrequency_s {
             get {
                 return ((int)(this["Readers_DataUpdateFrequency_s"]));
@@ -88,7 +88,7 @@ namespace FDS.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("5")]
+        [global::System.Configuration.DefaultSettingValueAttribute("30")]
         public int DataWriter_SleepDelay_s {
             get {
                 return ((int)(this["DataWriter_SleepDelay_s"]));
