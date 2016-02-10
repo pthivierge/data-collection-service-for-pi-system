@@ -61,7 +61,7 @@ namespace FDS.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_SECRET_HERE")]
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_KEY_HERE")]
         public string AppConsumerSecret {
             get {
                 return ((string)(this["AppConsumerSecret"]));
@@ -92,6 +92,24 @@ namespace FDS.Settings {
         public int DataWriter_SleepDelay_s {
             get {
                 return ((int)(this["DataWriter_SleepDelay_s"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("180")]
+        public int Readers_InitdaysOfHistory {
+            get {
+                return ((int)(this["Readers_InitdaysOfHistory"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int Readers_NormalRunDaysOfHistory {
+            get {
+                return ((int)(this["Readers_NormalRunDaysOfHistory"]));
             }
         }
     }

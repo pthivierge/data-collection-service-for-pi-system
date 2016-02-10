@@ -15,8 +15,11 @@
   <appender name="ColoredConsoleAppender" type="log4net.Appender.ColoredConsoleAppender">
     <mapping>
       <level value="ERROR" />
-      <foreColor value="White" />
-      <backColor value="Red, HighIntensity" />
+      <foreColor value="Red, HighIntensity" />
+    </mapping>
+    <mapping>
+      <level value="WARN" />
+      <foreColor value="Yellow, HighIntensity" />
     </mapping>
     <mapping>
       <level value="ALL" />

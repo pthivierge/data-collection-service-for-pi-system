@@ -44,29 +44,35 @@ namespace FDS.Core.DataReaders
             {
                 _logger.InfoFormat("Starting data collection for device: {0} ", _deviceElement.Name);
 
-                DateTime startTime = DateTime.Today - TimeSpan.FromDays(30);
+                // default start time = 30 days from last sync --> fitbit history on fitbit devices is 30 days 
+                DateTime startTime = DateTime.Today - TimeSpan.FromDays(Settings.General.Default.Readers_InitdaysOfHistory);
                 DateTime endTime = DateTime.Now;
 
                 string authToken = (string)_deviceElement.Attributes["AuthToken"].GetValue().Value;
                 string authTokenSecret = (string)_deviceElement.Attributes["AuthTokenSecret"].GetValue().Value;
 
-
                 // for debugging when no internet access
-                //if (Settings.Advanced.Default.NoConnectionSImulateData)
-                //    return true;
+                if (Settings.Advanced.Default.NoConnectionSImulateData)
+                    return true;
 
                 var fitBitClient = new FitbitClient(consumerKey, consumerSecret, authToken, authTokenSecret);
 
                 // user profile is not used for the time being
                 // var userProfile = fitBitClient.GetUserProfile();
-
-
+                
                 // check the last time the device was updated
                 var fitBitDevices = fitBitClient.GetDevices();
+
+                if (fitBitDevices == null)
+                    _logger.Warn("API call did not returned any fitbit device.");
+                else
+                    _logger.InfoFormat("fitbit profile contained {0} devices", fitBitDevices.Count);
+
                 var fitBitLastSync = AFTime.MinValue.LocalTime;
                 if (fitBitDevices != null)
                 {
                     
+                    // loop into all devices to get the latest sync time
                     foreach (var fitBitDevice in fitBitDevices)
                     {
                         if (fitBitLastSync < fitBitDevice.LastSyncTime)
@@ -81,10 +87,14 @@ namespace FDS.Core.DataReaders
                         if ((DateTime)afLastSync >= fitBitLastSync)
                         {
                             _logger.InfoFormat("{0} will not be updated, last sync time is greater or equal the fitbit last sync time ", _deviceElement.Name, valuesCount);
+
                             return true; // if syncdate has not changed since last sync, we don't update.
                         }
 
-
+                        //adjust the StartTime according to last sync
+                       startTime = fitBitLastSync - TimeSpan.FromDays(Settings.General.Default.Readers_NormalRunDaysOfHistory);
+                        endTime = fitBitLastSync;
+                        _logger.DebugFormat("Gathering data 30days prior last sync time, st: {0} et: {1}", startTime,endTime);
                     }
                 }
 
