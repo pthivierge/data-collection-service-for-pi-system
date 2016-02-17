@@ -4,19 +4,18 @@ using System.ServiceProcess;
 using System.Threading;
 using FDS.Core;
 using FDS.Core.DataReaders;
-using FDS.Core.Scheduler;
 using log4net;
 using FDS.Settings;
+using Quartz;
 
 namespace FDS.Service
 {
     public partial class Service : ServiceBase
     {
-        private readonly ILog _logger = LogManager.GetLogger(typeof (Service));
+        private readonly ILog _logger = LogManager.GetLogger(typeof(Service));
 
-        ConfigurationManager _configurationManager;
-        DataWriter _dataWriter;
-        DataReadersManager _dataReadersManager;
+      
+        private IScheduler _scheduler;
 
 
         #region Constructors
@@ -80,9 +79,10 @@ namespace FDS.Service
                 base.OnStart(args);
 
                 // put your startup service code here:
+                _logger.Info("Initializing service.");
                 InitService();
                 _logger.Info("Service is Started.");
-                
+
             }
             catch (Exception exception)
             {
@@ -92,24 +92,51 @@ namespace FDS.Service
 
         private void InitService()
         {
-            _configurationManager = new ConfigurationManager();
-            _dataReadersManager= new DataReadersManager();
-            _dataWriter =new DataWriter();
 
-            _configurationManager.Start();
-            _dataReadersManager.Start();
-            _dataWriter.Start();
 
+            
+            _scheduler = SharedData.SchedulerFactory.GetScheduler();
+            
+
+            ServiceTasksInstances.ConfigurationManager = new ConfigurationManager();
+            ServiceTasksInstances.DataReadersManager=new DataReadersManager();
+            ServiceTasksInstances.DataWriter = new DataWriter();
+            
+            _logger.InfoFormat("AF Elements structure refresh period is set to : {0}",Settings.General.Default.cronPeriod_Refresh);
+            _logger.InfoFormat("FitBit date refresh period is set to : {0}", Settings.General.Default.cronPeriod_Update);
+            _logger.InfoFormat("Data write period is set to : {0}", Settings.General.Default.cronPeriod_Write);
+            
+            _logger.InfoFormat("Executing first time data refresh");
+            ServiceTasksInstances.ConfigurationManager.RunOnce();
+            ServiceTasksInstances.DataReadersManager.RunOnce();
+            ServiceTasksInstances.DataWriter.RunOnce();
+
+            _logger.InfoFormat("configuring scheduler to run tasks periodically");
+            AddJobToScheduler<ConfigurationJob>(_scheduler,Settings.General.Default.cronPeriod_Refresh,"configuration");
+            AddJobToScheduler<DataReadersManagerJob>(_scheduler, Settings.General.Default.cronPeriod_Update, "DataReader");
+            AddJobToScheduler<DataWriterJob>(_scheduler, Settings.General.Default.cronPeriod_Write, "DataWriter");
+
+            _scheduler.Start();
+
+        }
+
+        // Settings.General.Default.cronPeriod_Refresh
+        private void AddJobToScheduler<T>(IScheduler scheduler, string jobCronSchedule, string jobName) where T:IJob
+        {
+           
+            IJobDetail cmJob = JobBuilder.Create<T>().WithIdentity(jobName).Build();
+            ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(jobCronSchedule).Build();
+
+            scheduler.ScheduleJob(cmJob, trigger);
         }
 
         protected override void OnStop()
         {
             // your code here
+            _scheduler.Shutdown(true);
 
-            _configurationManager.Stop();
-            _dataReadersManager.Stop();
-            _dataWriter.Stop();
-
+            ServiceTasksInstances.DataReadersManager.Dispose();
+            
             base.OnStop();
             _logger.Info("Service Stopped.");
         }

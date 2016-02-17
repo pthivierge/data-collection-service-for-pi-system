@@ -115,7 +115,6 @@
     <Compile Include="ConfigurationManager.cs" />
     <Compile Include="SharedData.cs" />
     <Compile Include="DataReaders\DataReadersManager.cs" />
-    <Compile Include="DataReaders\IWebDataReader.cs" />
     <Compile Include="DataWriter.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
     <Compile Include="Helpers\FitBitHelpers.cs" />
@@ -125,8 +124,6 @@
     <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\IniFile.cs" />
-    <Compile Include="Scheduler\CronScheduler.cs" />
-    <Compile Include="Scheduler\CronTask.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\ApplicationSettings\FDS.Settings.csproj">

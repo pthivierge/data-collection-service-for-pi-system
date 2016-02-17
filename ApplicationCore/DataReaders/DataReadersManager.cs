@@ -7,61 +7,41 @@ using System.Threading;
 using System.Threading.Tasks;
 using log4net;
 using OSIsoft.AF.Asset;
+using Quartz;
 
 namespace FDS.Core.DataReaders
 {
-    public class DataReadersManager
+    public class DataReadersManager : IDisposable
     {
         ILog _logger = LogManager.GetLogger(typeof(DataReadersManager));
 
         private readonly CancellationTokenSource _cancellationToken = new CancellationTokenSource();
+        private BlockingCollection<List<AFElement>> _processQueue = new BlockingCollection<List<AFElement>>();
         private Timer _readTimer;
         private Task _readTask;
 
-        private BlockingCollection<List<AFElement>> processQueue = new BlockingCollection<List<AFElement>>();
+        
 
-        public void Start()
+        public DataReadersManager()
         {
 
-            _logger.InfoFormat("Starting the Data Readers ");
-
-            // set the automatic refresh
-            _readTimer = new Timer(AddDevicesToQueue, null, 0, (int)TimeSpan.FromSeconds(Settings.General.Default.Readers_DataUpdateFrequency_s).TotalMilliseconds);
-
-            // starts the reading task
+            _logger.InfoFormat("Data Reader Created, starting internal read data task");
             _readTask = Task.Factory.StartNew(ReadData);
-
-
         }
 
 
-        public void Stop()
+        public void RunOnce()
         {
-            // stops the timer and wait for the current operation to complete
-            _logger.Info("Stopping Readers, waiting for remaining operations to complete...");
-            processQueue.CompleteAdding();
-
-
-            WaitHandle waitHandle = new AutoResetEvent(false);
-            _readTimer.Dispose(waitHandle);
-            waitHandle.WaitOne();
-            waitHandle.Dispose();
-
-            var tasks=new List<Task>();
-            tasks.Add(_readTask);
-            Task.WaitAll(tasks.ToArray());
-
-            _logger.Info("Readers stopped");
-
-
-
+            AddDevicesToQueue(null);
         }
+
+
 
         private void AddDevicesToQueue(object obj)
         {
             foreach (List<AFElement> afElements in SharedData.FitBitDevices.ToArray())
             {
-                processQueue.Add(afElements);
+                _processQueue.Add(afElements);
             }
         }
 
@@ -69,7 +49,7 @@ namespace FDS.Core.DataReaders
         private void ReadData()
         {
 
-            foreach (List<AFElement> devices in processQueue.GetConsumingEnumerable(_cancellationToken.Token))
+            foreach (List<AFElement> devices in _processQueue.GetConsumingEnumerable(_cancellationToken.Token))
             {
 
                 _logger.InfoFormat("Gathering data for {0} FitBit Devices", SharedData.FitBitDevices.Count);
@@ -89,12 +69,21 @@ namespace FDS.Core.DataReaders
 
             }
 
+            _logger.Info("Read Data task has terminated.");
+        }
 
 
+        public void Dispose()
+        {
+            // stops the timer and wait for the reading thread to complete
+            _logger.Info("Stopping Readers, waiting for remaining operations to complete...");
+            _processQueue.CompleteAdding();
 
+            var tasks = new List<Task>();
+            tasks.Add(_readTask);
+            Task.WaitAll(tasks.ToArray());
 
-
-
+            _logger.Info("Readers stopped");
         }
     }
 }

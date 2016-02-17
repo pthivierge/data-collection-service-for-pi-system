@@ -61,37 +61,10 @@ namespace FDS.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_KEY_HERE")]
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_SECRET_HERE")]
         public string AppConsumerSecret {
             get {
                 return ((string)(this["AppConsumerSecret"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("28133")]
-        public int Readers_DataUpdateFrequency_s {
-            get {
-                return ((int)(this["Readers_DataUpdateFrequency_s"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("3600")]
-        public int Configuration_UpdateFreq_s {
-            get {
-                return ((int)(this["Configuration_UpdateFreq_s"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("30")]
-        public int DataWriter_SleepDelay_s {
-            get {
-                return ((int)(this["DataWriter_SleepDelay_s"]));
             }
         }
         
@@ -110,6 +83,33 @@ namespace FDS.Settings {
         public int Readers_NormalRunDaysOfHistory {
             get {
                 return ((int)(this["Readers_NormalRunDaysOfHistory"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0 50 * * * ?")]
+        public string cronPeriod_Update {
+            get {
+                return ((string)(this["cronPeriod_Update"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0 0 * * * ?")]
+        public string cronPeriod_Refresh {
+            get {
+                return ((string)(this["cronPeriod_Refresh"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0/5 * * * * ?")]
+        public string cronPeriod_Write {
+            get {
+                return ((string)(this["cronPeriod_Write"]));
             }
         }
     }

@@ -7,7 +7,6 @@ using CommandLine;
 using FDS.Core;
 using FDS.Core.DataReaders;
 using FDS.Core.Helpers;
-using FDS.Core.Scheduler;
 using log4net;
 
 namespace FDS.CommandLine
@@ -41,23 +40,23 @@ namespace FDS.CommandLine
                     {
                         
                         var configurationManager = new ConfigurationManager();
-                        configurationManager.Start();
-                        
-                        var Reader=new DataReadersManager();
-                        Reader.Start();
-                        
-                        var dataWriter=new DataWriter();
-                        dataWriter.Start();
+                        var Reader = new DataReadersManager();
+                        var dataWriter = new DataWriter();
+
+                        configurationManager.RunOnce();
+                        Reader.RunOnce();
+                        dataWriter.RunOnce();
                       
 
                         Console.WriteLine("press a key to stop the data collection");
                         Console.ReadKey();
 
-                        configurationManager.Stop();
-                        Reader.Stop();
-                        dataWriter.Stop();
+                        
+                        Reader.Dispose();
+                        
                         
                         Console.WriteLine("Stopped");
+
 
                     }
 

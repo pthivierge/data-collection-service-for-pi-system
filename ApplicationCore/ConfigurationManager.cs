@@ -1,15 +1,10 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Fitbit.Models;
 using log4net;
 using OSIsoft.AF;
 using OSIsoft.AF.Asset;
+using Quartz;
 
 namespace FDS.Core
 {
@@ -20,36 +15,17 @@ namespace FDS.Core
     public class ConfigurationManager
     {
         ILog _logger = LogManager.GetLogger(typeof(ConfigurationManager));
-
-        private Timer _configRefreshTimer;
-
+        
         public ConfigurationManager()
         {
             // this option will force the creation of the PI AF Server in the KST (Known Servers Table) if it does not exist.
             PISystems.DirectoryOptions = PISystems.AFDirectoryOptions.AutoAdd;
-
         }
 
-        public void Start()
+
+        public void RunOnce()
         {
-
-            _logger.InfoFormat("Starting the configuration manager.");
-
-            // set the automatic refresh
-            _configRefreshTimer = new Timer(RefreshConfiguration, null, 0, (int)TimeSpan.FromSeconds(Settings.General.Default.Configuration_UpdateFreq_s).TotalMilliseconds);
-
-
-        }
-
-        public void Stop()
-        {
-            // stops the timer and wait for the current operation to complete
-            _logger.Info("Stopping the configuration manager, waiting for current operations to complete...");
-            WaitHandle waitHandle = new AutoResetEvent(false);
-            _configRefreshTimer.Dispose(waitHandle);
-            waitHandle.WaitOne();
-            waitHandle.Dispose();
-            _logger.Info("Configuration manager stopped");
+            RefreshConfiguration(null);
         }
 
         private void RefreshConfiguration(object obj)
@@ -76,9 +52,9 @@ namespace FDS.Core
                     int index = 0;
                     int total;
 
-                    // remove existing items in the queue
+                    // remove existing items in the queue before configuration is updated
                     List<AFElement> ignoredList;
-                    while (SharedData.FitBitDevices.TryDequeue(out ignoredList)) {};
+                    while (SharedData.FitBitDevices.TryDequeue(out ignoredList)) { };
 
                     do
                     {
@@ -90,20 +66,23 @@ namespace FDS.Core
                         if (elementCount == 0)
                             break;
 
+                        List<AFElement> elementsList = elements.Select(e => (AFElement)e).ToList();
+
+                        // forces full load of elements
+                        AFElement.LoadElements(elementsList);
+
                         // Convert a list of AFBaseElement to a list of AFElement
-                        List<AFElement> list = elements.Select(e => (AFElement)e).ToList();
-                        
-                        SharedData.FitBitDevices.Enqueue(list);
+                        elementsList = elementsList.Where(e => (bool)e.Attributes["ReadEnabled"].GetValue().Value == true).ToList();
+
+                        SharedData.FitBitDevices.Enqueue(elementsList);
 
 
                         _logger.InfoFormat(" Configuration Manager | StartIndex = {1} | Found a chunk of {2}  elements", DateTime.Now, index, elementCount);
 
                         index += chunkSize;
-#if DEBUG
-                    } while (index < 50000);
-#else
+
                     } while (index < total);
-#endif
+
                     // the findElements call we are using returns a paged collection to lower the memory foortprint
 
 
@@ -123,8 +102,6 @@ namespace FDS.Core
 
 
         }
-
-
 
     }
 }
