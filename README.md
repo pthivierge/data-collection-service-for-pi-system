@@ -1,7 +1,7 @@
 #web-service-reader-for-pi-system
 
-This project is a prototype build specifically to read data from the **Fitbit API**.  
-It might evolve and provide a basic framework that you could extent with your own APIs/Web Services.  
+This project is a prototype built specifically to read data from the **Fitbit API**.
+It might evolve and provide a basic base of work that you could extent with your own APIs/Web Services.  
 However, the project is not there yet.  
 
 To get data from FitBit, this project makes use of the FitBit.Net library.  This simplifies a lot the data retrieval from FitBit.
