@@ -152,7 +152,6 @@ namespace FDS.Core.DataReaders
         private void GetActivityData(FitbitClient fitBitClient, DateTime startTime, DateTime endTime)
         {
             // activity
-            //  --- active hours is calculated - so not here
             AFElement activityElement = _deviceElement.Elements["Activity"];
             CollectAndSaveData(fitBitClient, startTime, endTime, activityElement, TimeSeriesResourceType.CaloriesOut, "Calories");
             CollectAndSaveData(fitBitClient, startTime, endTime, activityElement, TimeSeriesResourceType.DistanceTracker, "Distance");
