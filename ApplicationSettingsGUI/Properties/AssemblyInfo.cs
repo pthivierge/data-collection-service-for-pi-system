@@ -1,3 +1,4 @@
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using log4net.Config;
@@ -14,9 +15,7 @@ using log4net.Config;
 //Short description of the assembly
 
 [assembly:
-    AssemblyDescription(
-        "FitBit Data Service Prototype Service Manager.  This is a user interface help starting or stopping the Service and manage service settings."
-        )]
+    AssemblyDescription("FitBit Data Service Prototype Service Manager.  This is a user interface help starting or stopping the Service and manage service settings. Licensed under Apache License Version 2.0")]
 [assembly: AssemblyConfiguration("")]
 
 //Product Name
@@ -25,7 +24,8 @@ using log4net.Config;
 
 //Copyright information
 
-[assembly: AssemblyCopyright("Copyright OSIsoft © 2016")]
+[assembly: AssemblyCopyright("Patrice Thivierge Fortin © 2016")]
+
 
 //Enumeration indicating the target culture for the assembly
 
