@@ -11,6 +11,9 @@ using Quartz;
 
 namespace WSR.Core.DataReaders
 {
+    /// <summary>
+    /// This class if responsible to perform the readings based on the different data readers configured.
+    /// </summary>
     public class DataReadersManager : IDisposable
     {
         ILog _logger = LogManager.GetLogger(typeof(DataReadersManager));
