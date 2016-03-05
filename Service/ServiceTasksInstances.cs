@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using FDS.Core;
-using FDS.Core.DataReaders;
 using Quartz;
+using WSR.Core;
+using WSR.Core.DataReaders;
 
-namespace FDS.Service
+namespace WSR.Service
 {
     public static class ServiceTasksInstances
     {

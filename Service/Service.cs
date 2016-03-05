@@ -2,13 +2,13 @@ using System;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
-using FDS.Core;
-using FDS.Core.DataReaders;
 using log4net;
-using FDS.Settings;
+using WSR.Settings;
 using Quartz;
+using WSR.Core;
+using WSR.Core.DataReaders;
 
-namespace FDS.Service
+namespace WSR.Service
 {
     public partial class Service : ServiceBase
     {

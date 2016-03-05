@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="FDS.Settings" GeneratedClassName="Advanced">
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="WSR.Settings" GeneratedClassName="Advanced">
   <Profiles />
   <Settings>
     <Setting Name="StartDebuggerOnStart" Type="System.Boolean" Scope="Application">

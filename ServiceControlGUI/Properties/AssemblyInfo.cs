@@ -1,17 +1,21 @@
+using System;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using log4net.Config;
 
+[assembly: XmlConfigurator(ConfigFile = "WSRServiceConfigurator.log4net.cfg.xml", Watch = true)]
 //Company shipping the assembly
 
 [assembly: AssemblyCompany("Patrice Thivierge F.")]
 
 //Friendly name for the assembly
 
-[assembly: AssemblyTitle("Web Service Data Reader Settings")]
+[assembly: AssemblyTitle("Web Service Data Reader Service Manager User Interface")]
 
 //Short description of the assembly
 
-[assembly: AssemblyDescription("Web Service Data Reader Settings. Contains default settings and handles settings management.")]
+[assembly:
+    AssemblyDescription("Web Service Data Reader Service Manager.  This is a user interface help starting or stopping the Service and manage service settings. Licensed under Apache License Version 2.0")]
 [assembly: AssemblyConfiguration("")]
 
 //Product Name
@@ -20,7 +24,8 @@ using System.Runtime.InteropServices;
 
 //Copyright information
 
-[assembly: AssemblyCopyright("Copyright Patrice Thivierge F. © 2016")]
+[assembly: AssemblyCopyright("Patrice Thivierge Fortin © 2016")]
+
 
 //Enumeration indicating the target culture for the assembly
 
@@ -29,7 +34,6 @@ using System.Runtime.InteropServices;
 //
 
 [assembly: ComVisible(false)]
-
 
 //Version number expressed as a string
 

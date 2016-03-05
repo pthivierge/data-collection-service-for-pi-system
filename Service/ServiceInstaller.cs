@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Configuration.Install;
 
-namespace FDS.Service
+namespace WSR.Service
 {
     [RunInstaller(true)]
     public partial class ServiceInstaller : Installer

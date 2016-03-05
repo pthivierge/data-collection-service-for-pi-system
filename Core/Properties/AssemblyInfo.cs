@@ -7,11 +7,11 @@ using System.Runtime.InteropServices;
 
 //Friendly name for the assembly
 
-[assembly: AssemblyTitle("Web Service Data Reader Settings")]
+[assembly: AssemblyTitle("Web Service Data Reader Core")]
 
 //Short description of the assembly
 
-[assembly: AssemblyDescription("Web Service Data Reader Settings. Contains default settings and handles settings management.")]
+[assembly: AssemblyDescription("Web Service Data Reader Core dll that contains business logic.")]
 [assembly: AssemblyConfiguration("")]
 
 //Product Name

@@ -4,12 +4,12 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using CommandLine;
-using FDS.Core;
-using FDS.Core.DataReaders;
-using FDS.Core.Helpers;
+using WSR.Core.Helpers;
 using log4net;
+using WSR.Core;
+using WSR.Core.DataReaders;
 
-namespace FDS.CommandLine
+namespace WSR.CommandLine
 {
     /// <summary>
     ///     Command line program "Main"

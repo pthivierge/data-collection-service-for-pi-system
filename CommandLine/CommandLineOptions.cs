@@ -1,7 +1,7 @@
 using CommandLine;
 using CommandLine.Text;
 
-namespace FDS.CommandLine
+namespace WSR.CommandLine
 {
     /// <summary>
     ///     see http://commandline.codeplex.com/

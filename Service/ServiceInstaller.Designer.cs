@@ -1,4 +1,4 @@
-namespace FDS.Service
+namespace WSR.Service
 {
     partial class ServiceInstaller
     {

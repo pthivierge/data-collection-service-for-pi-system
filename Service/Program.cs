@@ -4,7 +4,7 @@ using System.Reflection;
 using System.ServiceProcess;
 using log4net;
 
-namespace FDS.Service
+namespace WSR.Service
 {
     internal static class Program
     {
