@@ -25,34 +25,16 @@ namespace WSR.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("megatron")]
-        public string AFServerName {
+        [global::System.Configuration.DefaultSettingValueAttribute("0/1 * * * * ?")]
+        public string cronPeriod_CollectData {
             get {
-                return ((string)(this["AFServerName"]));
+                return ((string)(this["cronPeriod_CollectData"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FitBit")]
-        public string AFDatabaseName {
-            get {
-                return ((string)(this["AFDatabaseName"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0 50 * * * ?")]
-        public string cronPeriod_Update {
-            get {
-                return ((string)(this["cronPeriod_Update"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0 0 * * * ?")]
+        [global::System.Configuration.DefaultSettingValueAttribute("0/30 * * * * ?")]
         public string cronPeriod_Refresh {
             get {
                 return ((string)(this["cronPeriod_Refresh"]));

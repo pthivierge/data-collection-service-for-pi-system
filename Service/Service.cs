@@ -6,7 +6,7 @@ using log4net;
 using WSR.Settings;
 using Quartz;
 using WSR.Core;
-using WSR.Core.DataReaders;
+
 
 namespace WSR.Service
 {
@@ -92,50 +92,15 @@ namespace WSR.Service
 
         private void InitService()
         {
-
-
-            
-            _scheduler = SharedData.SchedulerFactory.GetScheduler();
-            
-
-            ServiceTasksInstances.ConfigurationManager = new ConfigurationManager();
-            ServiceTasksInstances.DataReadersManager=new DataReadersManager();
-            ServiceTasksInstances.DataWriter = new DataWriter();
-            
-            _logger.InfoFormat("AF Elements structure refresh period is set to : {0}",Settings.General.Default.cronPeriod_Refresh);
-            _logger.InfoFormat("FitBit date refresh period is set to : {0}", Settings.General.Default.cronPeriod_Update);
-            _logger.InfoFormat("Data write period is set to : {0}", Settings.General.Default.cronPeriod_Write);
-            
-            _logger.InfoFormat("Executing first time data refresh");
-            ServiceTasksInstances.ConfigurationManager.RunOnce();
-            ServiceTasksInstances.DataReadersManager.RunOnce();
-            ServiceTasksInstances.DataWriter.RunOnce();
-
-            _logger.InfoFormat("configuring scheduler to run tasks periodically");
-            AddJobToScheduler<ConfigurationJob>(_scheduler,Settings.General.Default.cronPeriod_Refresh,"configuration");
-            AddJobToScheduler<DataReadersManagerJob>(_scheduler, Settings.General.Default.cronPeriod_Update, "DataReader");
-            AddJobToScheduler<DataWriterJob>(_scheduler, Settings.General.Default.cronPeriod_Write, "DataWriter");
-
-            _scheduler.Start();
-
+            QuartzJobs.RunScheduler();
         }
 
-        // Settings.General.Default.cronPeriod_Refresh
-        private void AddJobToScheduler<T>(IScheduler scheduler, string jobCronSchedule, string jobName) where T:IJob
-        {
-           
-            IJobDetail cmJob = JobBuilder.Create<T>().WithIdentity(jobName).Build();
-            ITrigger trigger = TriggerBuilder.Create().WithCronSchedule(jobCronSchedule).Build();
-
-            scheduler.ScheduleJob(cmJob, trigger);
-        }
+       
 
         protected override void OnStop()
         {
-            // your code here
-            _scheduler.Shutdown(true);
 
-            ServiceTasksInstances.DataReadersManager.Dispose();
+            QuartzJobs.StopScheduler();
             
             base.OnStop();
             _logger.Info("Service Stopped.");

@@ -9,8 +9,8 @@ namespace WSR.CommandLine
     /// </summary>
     internal class CommandLineOptions
     {
-        [Option('t', "test", HelpText = "Runs the service as a command line application.")]
-        public bool Test { get; set; }
+        [Option('r', "run", HelpText = "Runs the service as a command line application.")]
+        public bool Run { get; set; }
 
         // examples
         //[Option(null, "lenght", DefaultValue = -1, HelpText = "The maximum number of bytes to process.")]

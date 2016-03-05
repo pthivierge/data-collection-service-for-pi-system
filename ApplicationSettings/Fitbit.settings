@@ -6,7 +6,7 @@
       <Value Profile="(Default)">FitBit Device Template</Value>
     </Setting>
     <Setting Name="AppConsumerKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">YOU_CONSUMER_KEY_HERE</Value>
+      <Value Profile="(Default)">YOU_CONSUMER_KEY_HERE!</Value>
     </Setting>
     <Setting Name="AppConsumerSecret" Type="System.String" Scope="Application">
       <Value Profile="(Default)">YOU_CONSUMER_SECRET_HERE</Value>

@@ -131,7 +131,7 @@ namespace WSR.Core.DataReaders
             var value = new AFValue(attribute, fitBitLastSyncTime, DateTime.Now);
             var list = new List<AFValue>();
             list.Add(value);
-            SharedData.DataQueue.Enqueue(list);
+            SharedData.DataWriterQueue.Enqueue(list);
         }
 
 
@@ -177,7 +177,7 @@ namespace WSR.Core.DataReaders
         {
             var fitBitData = fitBitClient.GetTimeSeries(type, startTime, endTime);
             AFValues values = Helpers.FitBitHelpers.ConvertToAFValues(fitBitData, type, deviceElement, attributeName);
-            SharedData.DataQueue.Enqueue(values);
+            SharedData.DataWriterQueue.Enqueue(values);
             valuesCount += values.Count;
         }
     }

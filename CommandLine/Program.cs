@@ -19,15 +19,13 @@ namespace WSR.CommandLine
     internal class Program
     {
         // the manual reset event serves to transmit information to the MonitorAFAttribute task
-        private ManualResetEvent _terminationRequest = new ManualResetEvent(false);
+        
 
         private static void Main(string[] args)
         {
             ILog _logger = LogManager.GetLogger(typeof(Program));
             TextWriter writer = Console.Out;
-
-
-
+            
             try
             {
                 _logger.Info("Command Line Started"); // you could delete this line ... 
@@ -36,23 +34,16 @@ namespace WSR.CommandLine
 
                 if (Parser.Default.ParseArguments(args, options))
                 {
-                    if (options.Test)
+                    if (options.Run)
                     {
+
+                        QuartzJobs.RunScheduler();
                         
-                        var configurationManager = new ConfigurationManager();
-                        var Reader = new DataReadersManager();
-                        var dataWriter = new DataWriter();
-
-                        configurationManager.RunOnce();
-                        Reader.RunOnce();
-                        dataWriter.RunOnce();
-                      
-
                         Console.WriteLine("press a key to stop the data collection");
                         Console.ReadKey();
 
                         
-                        Reader.Dispose();
+                        QuartzJobs.StopScheduler();
                         
                         
                         Console.WriteLine("Stopped");

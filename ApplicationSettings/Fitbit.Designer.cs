@@ -34,7 +34,7 @@ namespace WSR.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_KEY_HERE")]
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_KEY_HERE!")]
         public string AppConsumerKey {
             get {
                 return ((string)(this["AppConsumerKey"]));

@@ -40,7 +40,7 @@ namespace WSR.Core
 
 
             // gets all currently available values from the queue
-            while (SharedData.DataQueue.TryDequeue(out values))
+            while (SharedData.DataWriterQueue.TryDequeue(out values))
             {
                 allValues.AddRange(values);
             }
