@@ -13,11 +13,11 @@ namespace WSR.Settings {
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "14.0.0.0")]
-    public sealed partial class General : global::System.Configuration.ApplicationSettingsBase {
+    public sealed partial class Fitbit : global::System.Configuration.ApplicationSettingsBase {
         
-        private static General defaultInstance = ((General)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new General())));
+        private static Fitbit defaultInstance = ((Fitbit)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Fitbit())));
         
-        public static General Default {
+        public static Fitbit Default {
             get {
                 return defaultInstance;
             }
@@ -25,46 +25,46 @@ namespace WSR.Settings {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("megatron")]
-        public string AFServerName {
+        [global::System.Configuration.DefaultSettingValueAttribute("FitBit Device Template")]
+        public string AFTemplateForFitBit {
             get {
-                return ((string)(this["AFServerName"]));
+                return ((string)(this["AFTemplateForFitBit"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("FitBit")]
-        public string AFDatabaseName {
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_KEY_HERE")]
+        public string AppConsumerKey {
             get {
-                return ((string)(this["AFDatabaseName"]));
+                return ((string)(this["AppConsumerKey"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0 50 * * * ?")]
-        public string cronPeriod_Update {
+        [global::System.Configuration.DefaultSettingValueAttribute("YOU_CONSUMER_SECRET_HERE")]
+        public string AppConsumerSecret {
             get {
-                return ((string)(this["cronPeriod_Update"]));
+                return ((string)(this["AppConsumerSecret"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0 0 * * * ?")]
-        public string cronPeriod_Refresh {
+        [global::System.Configuration.DefaultSettingValueAttribute("180")]
+        public int Readers_InitdaysOfHistory {
             get {
-                return ((string)(this["cronPeriod_Refresh"]));
+                return ((int)(this["Readers_InitdaysOfHistory"]));
             }
         }
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0/5 * * * * ?")]
-        public string cronPeriod_Write {
+        [global::System.Configuration.DefaultSettingValueAttribute("15")]
+        public int Readers_NormalRunDaysOfHistory {
             get {
-                return ((string)(this["cronPeriod_Write"]));
+                return ((int)(this["Readers_NormalRunDaysOfHistory"]));
             }
         }
     }

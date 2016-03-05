@@ -34,7 +34,7 @@ namespace WSR.Core
             {
                 var serverName = Settings.General.Default.AFServerName;
                 var databaseName = Settings.General.Default.AFDatabaseName;
-                var templateName = Settings.General.Default.AFTemplateForFitBit;
+                var templateName = Settings.Fitbit.Default.AFTemplateForFitBit;
 
                 _logger.InfoFormat("Updating configuration from AF Server: {0}", serverName);
 

@@ -8,21 +8,6 @@
     <Setting Name="AFDatabaseName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">FitBit</Value>
     </Setting>
-    <Setting Name="AFTemplateForFitBit" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">FitBit Device Template</Value>
-    </Setting>
-    <Setting Name="AppConsumerKey" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">YOU_CONSUMER_KEY_HERE</Value>
-    </Setting>
-    <Setting Name="AppConsumerSecret" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">YOU_CONSUMER_SECRET_HERE</Value>
-    </Setting>
-    <Setting Name="Readers_InitdaysOfHistory" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">180</Value>
-    </Setting>
-    <Setting Name="Readers_NormalRunDaysOfHistory" Type="System.Int32" Scope="Application">
-      <Value Profile="(Default)">15</Value>
-    </Setting>
     <Setting Name="cronPeriod_Update" Type="System.String" Scope="Application">
       <Value Profile="(Default)">0 50 * * * ?</Value>
     </Setting>

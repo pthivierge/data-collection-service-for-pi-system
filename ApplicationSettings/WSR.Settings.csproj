@@ -95,6 +95,11 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Advanced.settings</DependentUpon>
     </Compile>
+    <Compile Include="Fitbit.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Fitbit.settings</DependentUpon>
+    </Compile>
     <Compile Include="General.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
@@ -110,6 +115,10 @@
       <Generator>PublicSettingsSingleFileGenerator</Generator>
       <LastGenOutput>Advanced.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
+    </None>
+    <None Include="Fitbit.settings">
+      <Generator>PublicSettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Fitbit.Designer.cs</LastGenOutput>
     </None>
     <None Include="General.settings">
       <Generator>PublicSettingsSingleFileGenerator</Generator>

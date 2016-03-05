@@ -32,8 +32,8 @@ namespace WSR.Core.DataReaders
             _deviceElement = device;
 
             // load keys from settings
-            _consumerKey = Settings.General.Default.AppConsumerKey;
-            _consumerSecret = Settings.General.Default.AppConsumerSecret;
+            _consumerKey = Settings.Fitbit.Default.AppConsumerKey;
+            _consumerSecret = Settings.Fitbit.Default.AppConsumerSecret;
 
             Init();
         }
@@ -42,7 +42,7 @@ namespace WSR.Core.DataReaders
         private void Init()
         {
             // default start time = 30 days from last sync --> fitbit history on fitbit devices is 30 days 
-            _startTime = DateTime.Today - TimeSpan.FromDays(Settings.General.Default.Readers_InitdaysOfHistory);
+            _startTime = DateTime.Today - TimeSpan.FromDays(Settings.Fitbit.Default.Readers_InitdaysOfHistory);
             _endTime = DateTime.Now;
             _authToken = (string)_deviceElement.Attributes["AuthToken"].GetValue().Value;
             _authTokenSecret = (string)_deviceElement.Attributes["AuthTokenSecret"].GetValue().Value;
@@ -99,7 +99,7 @@ namespace WSR.Core.DataReaders
                         }
 
                         //adjust the StartTime according to last sync
-                        _startTime = fitBitLastSyncTime - TimeSpan.FromDays(Settings.General.Default.Readers_NormalRunDaysOfHistory);
+                        _startTime = fitBitLastSyncTime - TimeSpan.FromDays(Settings.Fitbit.Default.Readers_NormalRunDaysOfHistory);
                         _endTime = fitBitLastSyncTime;
                         _logger.DebugFormat("Gathering data 30days prior last sync time, st: {0} et: {1}", _startTime, _endTime);
                     }
