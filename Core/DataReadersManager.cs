@@ -35,6 +35,7 @@ namespace WSR.Core
 
         /// <summary>
         /// This method should be called only once after all readers have been added to the DataReaders collection
+        /// It makes first time initialization for all the readers
         /// </summary>
         public void InitializeReaders()
         {

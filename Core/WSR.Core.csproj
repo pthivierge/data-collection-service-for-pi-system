@@ -117,7 +117,7 @@
     <Compile Include="SharedData.cs" />
     <Compile Include="DataWriter.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
-    <Compile Include="Helpers\FitBitHelpers.cs" />
+    <Compile Include="DataReaders\FitBit\FitBitHelpers.cs" />
     <Compile Include="Helpers\General.cs" />
     <Compile Include="DataReaders\FitBit\FitBitDataReader.cs" />
     <Compile Include="Helpers\PropertySorter.cs" />
