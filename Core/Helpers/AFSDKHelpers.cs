@@ -53,7 +53,7 @@ namespace WSR.Core.Helpers
                     elementsConcurrentQueue.Enqueue(afElement);
                 }
 
-                _logger.DebugFormat(" Load Elements by Template | StartIndex = {1} | Found a chunk of {2}  elements", DateTime.Now, index, elementCount);
+                _logger.InfoFormat(" Load Elements by Template | StartIndex = {1} | Found a chunk of {2}  elements", DateTime.Now, index, elementCount);
 
                 index += chunkSize;
 

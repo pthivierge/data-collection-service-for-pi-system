@@ -21,7 +21,7 @@ namespace WSR.Core
         ILog _logger = LogManager.GetLogger(typeof(DataReadersManager));
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private CancellationToken _cancellationToken;
-        public List<DataReader> DataReaders=new List<DataReader>();
+        public List<IDataReader> DataReaders=new List<IDataReader>();
 
         private ManualResetEvent dataCollectionCompleted = new ManualResetEvent(true);
         private ManualResetEvent refreshCompleted = new ManualResetEvent(true);

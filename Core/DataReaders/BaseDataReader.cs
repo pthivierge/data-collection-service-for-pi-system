@@ -11,7 +11,11 @@ using WSR.Core.Helpers;
 
 namespace WSR.Core.DataReaders
 {
-    public abstract class DataReader
+    /// <summary>
+    /// This class is a base implementation of a data reader that gets its configuration from AF elements
+    /// 
+    /// </summary>
+    public abstract class BaseDataReader
     {
         protected ILog Logger => LogManager.GetLogger(GetType());
 
@@ -23,7 +27,7 @@ namespace WSR.Core.DataReaders
         protected AFConnectionHelper _afConnectionHelper;
 
 
-        protected DataReader(string afServerName, string afDataBaseName, string elementTemplateName)
+        protected BaseDataReader(string afServerName, string afDataBaseName, string elementTemplateName)
         {
             _afServerName = afServerName;
             _afDatabaseName = afDataBaseName;
@@ -31,7 +35,7 @@ namespace WSR.Core.DataReaders
         }
 
         /// <summary>
-        /// Initializes DataReader Parameters.
+        /// Initializes BaseDataReader Parameters.
         /// Once initialized, the GetConfiguration method can be used to retrieve AF Elements from the database.
         /// </summary>
         public void Inititialize()
@@ -93,7 +97,7 @@ namespace WSR.Core.DataReaders
         /// 
         /// </summary>
         /// <returns>The list of values to be written back to the PI System</returns>
-        protected abstract List<AFValue> ReadValues(AFElement element);
+        public abstract List<AFValue> ReadValues(AFElement element);
         
 
 

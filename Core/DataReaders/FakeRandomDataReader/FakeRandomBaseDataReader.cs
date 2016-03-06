@@ -9,16 +9,12 @@ using OSIsoft.AF.Time;
 
 namespace WSR.Core.DataReaders.FakeRandomDataReader
 {
-    public class FakeRandomDataReader : DataReader
+    public class FakeRandomBaseDataReader : BaseDataReader, IDataReader 
     {
         Random _randomGenerator=new Random();
+        
 
-        public FakeRandomDataReader(string afServerName, string afDataBaseName, string elementTemplateName) : base(afServerName, afDataBaseName, elementTemplateName)
-        {
-            
-        }
-
-        protected override List<AFValue> ReadValues(AFElement element)
+        public override List<AFValue> ReadValues(AFElement element)
         {
             var attribute = element.Attributes["Value"];
 
@@ -30,6 +26,10 @@ namespace WSR.Core.DataReaders.FakeRandomDataReader
             var value=new AFValue(attribute,newValue,AFTime.Now);
 
             return new List<AFValue>() {value};
+        }
+
+        public FakeRandomBaseDataReader(string afServerName, string afDataBaseName, string elementTemplateName) : base(afServerName, afDataBaseName, elementTemplateName)
+        {
         }
     }
 }

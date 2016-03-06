@@ -3,9 +3,8 @@ using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
 using log4net;
-using WSR.Settings;
-using Quartz;
 using WSR.Core;
+using WSR.Core.Configuration;
 
 
 namespace WSR.Service
@@ -13,11 +12,7 @@ namespace WSR.Service
     public partial class Service : ServiceBase
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(Service));
-
-      
-        private IScheduler _scheduler;
-
-
+        
         #region Constructors
 
         /// <summary>
@@ -62,7 +57,7 @@ namespace WSR.Service
         {
             try
             {
-                if (Advanced.Default.StartDebuggerOnStart)
+                if (Config.Settings.DebugSettings.StartDebuggerOnStart)
                 {
                     Debugger.Launch();
 
@@ -92,7 +87,7 @@ namespace WSR.Service
 
         private void InitService()
         {
-            QuartzJobs.RunScheduler();
+            Core.Program.RunScheduler();
         }
 
        
@@ -100,7 +95,7 @@ namespace WSR.Service
         protected override void OnStop()
         {
 
-            QuartzJobs.StopScheduler();
+            Core.Program.StopScheduler();
             
             base.OnStop();
             _logger.Info("Service Stopped.");
