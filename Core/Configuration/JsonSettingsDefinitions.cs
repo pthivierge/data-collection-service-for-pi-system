@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WSR.Core.Configuration
+namespace DCS.Core.Configuration
 {
     // Make changes in settings.json
     // then use this site to generate your classes here

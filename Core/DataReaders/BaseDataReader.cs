@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DCS.Core.Helpers;
 using log4net;
 using OSIsoft.AF;
 using OSIsoft.AF.Asset;
-using WSR.Core.Helpers;
 
-namespace WSR.Core.DataReaders
+namespace DCS.Core.DataReaders
 {
     /// <summary>
     /// This class is a base implementation of a data reader that gets its configuration from AF elements

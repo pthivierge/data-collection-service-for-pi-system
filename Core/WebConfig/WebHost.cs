@@ -8,7 +8,7 @@ using Nancy.Conventions;
 using Nancy.Hosting.Self;
 using Nancy.TinyIoc;
 
-namespace WSR.Core.WebConfig
+namespace DCS.Core.WebConfig
 {
 
     public sealed class WebHost : IDisposable

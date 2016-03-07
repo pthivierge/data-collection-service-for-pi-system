@@ -1,4 +1,4 @@
-namespace WSR.Service
+namespace DCS.Service
 {
     partial class ServiceInstaller
     {

@@ -1,7 +1,7 @@
 using System.ComponentModel;
 using System.Configuration.Install;
 
-namespace WSR.Service
+namespace DCS.Service
 {
     [RunInstaller(true)]
     public partial class ServiceInstaller : Installer

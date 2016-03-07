@@ -1,6 +1,6 @@
 using System;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     public static class ExtensionMethods
     {

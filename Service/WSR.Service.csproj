@@ -8,8 +8,8 @@
     <ProjectGuid>{1FBEA0AD-EA46-4053-A2D3-151BB5DB49F3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WSR.Service</RootNamespace>
-    <AssemblyName>WSRService</AssemblyName>
+    <RootNamespace>DCS.Service</RootNamespace>
+    <AssemblyName>DCSService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

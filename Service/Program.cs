@@ -3,11 +3,11 @@ using System.Configuration.Install;
 using System.Reflection;
 using System.ServiceProcess;
 using CommandLine;
+using DCS.Core.WebConfig;
 using log4net;
-using WSR.Core;
-using WSR.Core.WebConfig;
+using DCS.Core;
 
-namespace WSR.Service
+namespace DCS.Service
 {
     internal static class Program
     {

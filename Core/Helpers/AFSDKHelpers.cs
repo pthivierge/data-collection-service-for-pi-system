@@ -8,7 +8,7 @@ using OSIsoft.AF;
 using OSIsoft.AF.Asset;
 using log4net;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     public static class AFSDKHelpers
     {

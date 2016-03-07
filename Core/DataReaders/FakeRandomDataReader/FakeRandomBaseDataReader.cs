@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Time;
 
-namespace WSR.Core.DataReaders.FakeRandomDataReader
+namespace DCS.Core.DataReaders.FakeRandomDataReader
 {
     /// <summary>
     /// This data reader can be used to generate random data when you need to test data collection.

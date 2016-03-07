@@ -1,6 +1,6 @@
 using System.IO;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     /// <summary>
     /// General Helpers Class

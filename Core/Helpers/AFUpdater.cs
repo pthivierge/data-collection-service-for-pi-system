@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using log4net;
 using OSIsoft.AF;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     public class AFUpdater
     {

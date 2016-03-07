@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using OSIsoft.AF.Asset;
 
-namespace WSR.Core.DataReaders
+namespace DCS.Core.DataReaders
 {
     public interface IDataReader
     {

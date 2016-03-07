@@ -7,16 +7,16 @@ using System.Runtime.InteropServices;
 
 //Friendly name for the assembly
 
-[assembly: AssemblyTitle("Web Service Data Reader Core")]
+[assembly: AssemblyTitle("Data Collection Service for PI System Core")]
 
 //Short description of the assembly
 
-[assembly: AssemblyDescription("Web Service Data Reader Core dll that contains business logic.")]
+[assembly: AssemblyDescription("Data Collection Service for PI System Core dll that contains business logic.")]
 [assembly: AssemblyConfiguration("")]
 
 //Product Name
 
-[assembly: AssemblyProduct("Web Service Data Reader")]
+[assembly: AssemblyProduct("Data Collection Service for PI System")]
 
 //Copyright information
 

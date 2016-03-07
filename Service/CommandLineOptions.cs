@@ -1,7 +1,7 @@
 using CommandLine;
 using CommandLine.Text;
 
-namespace WSR
+namespace DCS
 {
     /// <summary>
     ///     see http://commandline.codeplex.com/

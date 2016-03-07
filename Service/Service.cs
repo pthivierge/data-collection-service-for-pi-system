@@ -2,12 +2,12 @@ using System;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
+using DCS.Core.Configuration;
 using log4net;
-using WSR.Core;
-using WSR.Core.Configuration;
+using DCS.Core;
 
 
-namespace WSR.Service
+namespace DCS.Service
 {
     public partial class Service : ServiceBase
     {

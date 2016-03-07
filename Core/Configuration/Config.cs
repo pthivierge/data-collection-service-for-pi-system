@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using log4net;
 using Newtonsoft.Json;
 
-namespace WSR.Core.Configuration
+namespace DCS.Core.Configuration
 {
     public static class Config
     {

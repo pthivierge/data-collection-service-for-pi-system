@@ -4,7 +4,7 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
 
-namespace WSR.Core.Scheduler
+namespace DCS.Core.Scheduler
 {
     /// <summary>
     /// Scheduler class

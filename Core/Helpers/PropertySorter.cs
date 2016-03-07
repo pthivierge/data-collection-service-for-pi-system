@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using System.ComponentModel;
 
-namespace WSR.Core.SettingsMgmt
+namespace DCS.Core.SettingsMgmt
 {
 
     /// <summary>

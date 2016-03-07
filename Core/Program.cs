@@ -1,11 +1,11 @@
 ﻿using System;
+using DCS.Core.Configuration;
+using DCS.Core.DataReaders.FakeRandomDataReader;
+using DCS.Core.Scheduler;
 using log4net;
 using Quartz;
-using WSR.Core.Configuration;
-using WSR.Core.DataReaders.FakeRandomDataReader;
-using WSR.Core.Scheduler;
 
-namespace WSR.Core
+namespace DCS.Core
 {
     public static class Program
     {

@@ -19,7 +19,7 @@ using System.Collections.Generic;
 using log4net;
 using OSIsoft.AF;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     /// <summary>
     /// This class is responsible of connecting to PI System (AF) and to select the database to work with

@@ -8,8 +8,8 @@
     <ProjectGuid>{DE39BF39-C91D-4E1E-897F-A20E2AC7FE6E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WSR.Core</RootNamespace>
-    <AssemblyName>WSRCore</AssemblyName>
+    <RootNamespace>DCS.Core</RootNamespace>
+    <AssemblyName>DCSCore</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\Solution\</SolutionDir>
