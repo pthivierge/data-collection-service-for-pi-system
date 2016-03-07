@@ -132,9 +132,9 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\WSR.Core.csproj">
+    <ProjectReference Include="..\Core\DCS.Core.csproj">
       <Project>{de39bf39-c91d-4e1e-897f-a20e2ac7fe6e}</Project>
-      <Name>WSR.Core</Name>
+      <Name>DCS.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -2,9 +2,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSR.Service", "Service\WSR.Service.csproj", "{1FBEA0AD-EA46-4053-A2D3-151BB5DB49F3}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCS.Service", "Service\DCS.Service.csproj", "{1FBEA0AD-EA46-4053-A2D3-151BB5DB49F3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WSR.Core", "Core\WSR.Core.csproj", "{DE39BF39-C91D-4E1E-897F-A20E2AC7FE6E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCS.Core", "Core\DCS.Core.csproj", "{DE39BF39-C91D-4E1E-897F-A20E2AC7FE6E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{79CE80F2-E5FE-4393-BEB1-1657DA6F6893}"
 	ProjectSection(SolutionItems) = preProject
