@@ -9,6 +9,13 @@ using OSIsoft.AF.Time;
 
 namespace WSR.Core.DataReaders.FakeRandomDataReader
 {
+    /// <summary>
+    /// This data reader can be used to generate random data when you need to test data collection.
+    /// It requires a database that contains elements based on an ElementTemplate with the following Attributes: 
+    /// value:     the PI Point where the data will be written
+    /// LowValue:  An integer static attribute that defines the lowest random value
+    /// HighValue: An integer static attribute that defines the highest random value
+    /// </summary>
     public class FakeRandomBaseDataReader : BaseDataReader, IDataReader 
     {
         Random _randomGenerator=new Random();
