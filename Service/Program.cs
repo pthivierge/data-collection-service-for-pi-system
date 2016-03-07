@@ -1,11 +1,13 @@
 using System;
 using System.Configuration.Install;
+using System.Net.Mime;
 using System.Reflection;
 using System.ServiceProcess;
 using CommandLine;
 using DCS.Core.WebConfig;
 using log4net;
 using DCS.Core;
+using DCS.Core.Configuration;
 
 namespace DCS.Service
 {
@@ -31,6 +33,9 @@ namespace DCS.Service
                 {
                     if (options.Run)
                     {
+                        if(!Config.IsLoaded())
+                            Environment.Exit(-1);
+
                         WebHost.Instance.Start();
                         Core.Program.RunScheduler();
 
@@ -75,6 +80,8 @@ namespace DCS.Service
         private static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             _logger.Error(e.ExceptionObject);
+            
+            
         }
     }
 }

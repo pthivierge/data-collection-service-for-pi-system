@@ -82,6 +82,11 @@ namespace DCS.Core.DataReaders
         public virtual void CollectData()
         {
             Logger.DebugFormat("Data collection started for {0} elements",_afElementsQueue.Count);
+            if(_afElementsQueue.Count==0)
+            { 
+                Logger.InfoFormat("Data collection cannot proceed, there is not AF Element loaded yet.");
+            }
+
 
             Parallel.ForEach(_afElementsQueue, new ParallelOptions() {MaxDegreeOfParallelism = 10 }, (element) =>
             {

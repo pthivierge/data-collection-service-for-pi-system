@@ -24,15 +24,13 @@ namespace DCS.Core.DataReaders.FakeRandomDataReader
         public override List<AFValue> ReadValues(AFElement element)
         {
             var attribute = element.Attributes["Value"];
-
             var min= (int)element.Attributes["LowValue"].GetValue().Value;
             var max = (int)element.Attributes["HighValue"].GetValue().Value;
 
             var newValue = _randomGenerator.Next(min,max);
+            var afValue=new AFValue(attribute,newValue,AFTime.Now);
 
-            var value=new AFValue(attribute,newValue,AFTime.Now);
-
-            return new List<AFValue>() {value};
+            return new List<AFValue>() {afValue};
         }
 
         public FakeRandomBaseDataReader(string afServerName, string afDataBaseName, string elementTemplateName) : base(afServerName, afDataBaseName, elementTemplateName)

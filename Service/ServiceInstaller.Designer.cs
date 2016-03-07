@@ -39,9 +39,9 @@ namespace DCS.Service
             // 
             // serviceInstaller1
             // 
-            this.serviceInstaller1.Description = "Service that collects data from FitBit API and stores it into the PI System";
-            this.serviceInstaller1.DisplayName = "FitBit Data Service for the PI System";
-            this.serviceInstaller1.ServiceName = "FDSService";
+            this.serviceInstaller1.Description = "Service that collects data and stores it into the PI System";
+            this.serviceInstaller1.DisplayName = "Data Collection Service for the PI System";
+            this.serviceInstaller1.ServiceName = "DCSService";
             // 
             // ServiceInstaller
             // 

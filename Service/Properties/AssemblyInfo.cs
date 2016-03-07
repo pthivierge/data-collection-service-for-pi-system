@@ -2,7 +2,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using log4net.Config;
 
-[assembly: XmlConfigurator(ConfigFile = "WSRService.log4Net.cfg.xml", Watch = true)]
+[assembly: XmlConfigurator(ConfigFile = "log4Net.xml", Watch = true)]
 
 //Company shipping the assembly
 

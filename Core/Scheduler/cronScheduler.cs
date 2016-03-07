@@ -62,7 +62,7 @@ namespace DCS.Core.Scheduler
         public void Stop()
         {
             Logger.Debug("Stopping Cron Scheduler...");
-            _sched.Shutdown();
+            _sched?.Shutdown();
         }
 
         #endregion

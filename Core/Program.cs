@@ -64,8 +64,8 @@ namespace DCS.Core
 
         public static void StopScheduler()
         {
-            Program.DataReadersManager.Dispose();
-            _scheduler.Stop();
+            Program.DataReadersManager?.Dispose();
+            _scheduler?.Stop();
         }
     }
     
