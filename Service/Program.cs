@@ -8,6 +8,7 @@ using DCS.Core.WebConfig;
 using log4net;
 using DCS.Core;
 using DCS.Core.Configuration;
+using DCS.Core.DataReaders;
 
 namespace DCS.Service
 {
@@ -50,6 +51,43 @@ namespace DCS.Service
 
                     }
 
+                    if (options.Test)
+                    {
+
+                        var dataWriter = new DataWriter();
+
+                        // Here are added the configured data readers
+                        foreach (ReadersConfiguration reader in Config.Settings.ReadersConfiguration)
+                        {
+                            if (!string.IsNullOrEmpty(reader.ReaderType))
+                            {
+                                switch (reader.ReaderType)
+                                {
+                                    case "RandomReader":
+                                        {
+                                            var newReader = new FakeRandomBaseDataReader(reader.AFServerName, reader.AFDatabaseName, reader.AFElementTemplateName);
+                                            newReader.Inititialize();
+                                            newReader.CollectData();
+                                            break;
+                                        }
+                                    case "GitHubReader":
+                                        {
+                                            var newReader = new GitHubDataReader(reader.AFServerName, reader.AFDatabaseName, reader.AFElementTemplateName);
+                                            newReader.Inititialize();
+                                            newReader.CollectData();
+                                            break;
+                                        }
+                                }
+                            }
+
+                            dataWriter.FlushData();
+
+                            
+
+
+                        }
+                    }
+
                     if (options.Install)
                     {
                         ManagedInstallerClass.InstallHelper(new[] { Assembly.GetExecutingAssembly().Location });
@@ -59,7 +97,9 @@ namespace DCS.Service
                     {
                         ManagedInstallerClass.InstallHelper(new[] { "/u", Assembly.GetExecutingAssembly().Location });
                     }
+
                     
+
                     // exit ok
                     Environment.Exit(0);
                     

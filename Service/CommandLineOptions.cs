@@ -18,6 +18,8 @@ namespace DCS
         [Option('u', "uninstall", HelpText = "Uninstall the windows service", MutuallyExclusiveSet = "SingleAction")]
         public bool Uninstall { get; set; }
 
+        [Option('t',"test",HelpText = "Execute the ReadValues call for each reader, only one time.  You may use that for testing.",MutuallyExclusiveSet = "SingleAction")]
+        public bool Test { get; set; }
 
 
 
