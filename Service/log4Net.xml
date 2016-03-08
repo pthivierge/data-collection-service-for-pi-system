@@ -1,6 +1,6 @@
 <log4net>
   <appender name="RollingFile" type="log4net.Appender.RollingFileAppender">
-    <file value="Logs\CommandLine.Log" />
+    <file value="Logs\DataCollection.Log" />
     <threshold value="INFO" />
     <appendToFile value="true" />
     <rollingStyle value="Composite" />

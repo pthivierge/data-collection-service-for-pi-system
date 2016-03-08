@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DCS.Core.DataReaders;
 using log4net;
 using OSIsoft.AF;
 using OSIsoft.AF.Asset;
 using Quartz;
-using WSR.Core.DataReaders;
-using WSR.Core.Helpers;
+using DCS.Core.Helpers;
 
-namespace WSR.Core
+namespace DCS.Core
 {
     /// <summary>
     /// Maintains the list of Data Readers into memory

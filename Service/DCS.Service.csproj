@@ -8,8 +8,8 @@
     <ProjectGuid>{1FBEA0AD-EA46-4053-A2D3-151BB5DB49F3}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>WSR.Service</RootNamespace>
-    <AssemblyName>WSRService</AssemblyName>
+    <RootNamespace>DCS.Service</RootNamespace>
+    <AssemblyName>DataCollectionService</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -127,14 +127,14 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="WSRService.log4Net.cfg.xml">
+    <Content Include="log4Net.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\WSR.Core.csproj">
+    <ProjectReference Include="..\Core\DCS.Core.csproj">
       <Project>{de39bf39-c91d-4e1e-897f-a20e2ac7fe6e}</Project>
-      <Name>WSR.Core</Name>
+      <Name>DCS.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,7 @@ SET output="..\..\..\Build"
 if not exist "%25output%25" mkdir "%25output%25"
 if not exist "%25output%25\bin" mkdir "%25output%25\bin"
 
-robocopy "$(TargetDir)." "%25output%25\." $(TargetName).exe $(TargetName).pdb *.config *.ini *.ico *.html *.cfg.xml /XO /NJH /NP /S
+robocopy "$(TargetDir)." "%25output%25\." $(TargetName).exe $(TargetName).pdb *.config *.ini *.ico *.html log4Net.xml settings.json /XO /NJH /NP /S
 robocopy "$(TargetDir)." "%25output%25\bin\." *.dll /XO /NJH /NP /S
 robocopy "$(TargetDir)\WebConfig" "%25output%25\webconfig" *.* /XO /NJH /NP /S
 if errorlevel 4 goto BuildEventFailed

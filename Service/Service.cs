@@ -1,18 +1,20 @@
 using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.ServiceProcess;
 using System.Threading;
+using DCS.Core.Configuration;
 using log4net;
-using WSR.Core;
-using WSR.Core.Configuration;
+using DCS.Core;
+using DCS.Core.WebConfig;
 
 
-namespace WSR.Service
+namespace DCS.Service
 {
     public partial class Service : ServiceBase
     {
         private readonly ILog _logger = LogManager.GetLogger(typeof(Service));
-        
+
         #region Constructors
 
         /// <summary>
@@ -57,7 +59,9 @@ namespace WSR.Service
         {
             try
             {
-                if (Config.Settings.DebugSettings.StartDebuggerOnStart)
+
+                //if (true)
+                if (Config.Settings != null && Config.Settings.DebugSettings.StartDebuggerOnStart)
                 {
                     Debugger.Launch();
 
@@ -76,7 +80,7 @@ namespace WSR.Service
                 // put your startup service code here:
                 _logger.Info("Initializing service.");
                 InitService();
-                _logger.Info("Service is Started.");
+
 
             }
             catch (Exception exception)
@@ -87,18 +91,36 @@ namespace WSR.Service
 
         private void InitService()
         {
+            if (!Config.IsLoaded())
+            {
+                ExitCode = -1;
+                Stop();
+                throw new ApplicationException("Settings file could not be found.");
+            }
+
+            WebHost.Instance.Start();
             Core.Program.RunScheduler();
+
         }
 
-       
+
 
         protected override void OnStop()
         {
+            try
+            {
 
-            Core.Program.StopScheduler();
-            
-            base.OnStop();
-            _logger.Info("Service Stopped.");
+                WebHost.Instance.Dispose();
+                Core.Program.StopScheduler();
+
+                base.OnStop();
+                _logger.Info("Service Stopped.");
+
+            }
+            catch (Exception ex)
+            {
+                _logger.Error(ex);
+            }
         }
 
 

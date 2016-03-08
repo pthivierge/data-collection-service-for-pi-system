@@ -7,7 +7,7 @@ using Fitbit.Models;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Time;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     public static class FitBitHelpers
     {

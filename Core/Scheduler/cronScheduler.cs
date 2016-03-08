@@ -4,7 +4,7 @@ using Quartz;
 using Quartz.Impl;
 using Quartz.Impl.Triggers;
 
-namespace WSR.Core.Scheduler
+namespace DCS.Core.Scheduler
 {
     /// <summary>
     /// Scheduler class
@@ -62,7 +62,7 @@ namespace WSR.Core.Scheduler
         public void Stop()
         {
             Logger.Debug("Stopping Cron Scheduler...");
-            _sched.Shutdown();
+            _sched?.Shutdown();
         }
 
         #endregion

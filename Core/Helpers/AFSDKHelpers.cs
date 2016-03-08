@@ -8,7 +8,7 @@ using OSIsoft.AF;
 using OSIsoft.AF.Asset;
 using log4net;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     public static class AFSDKHelpers
     {
@@ -43,11 +43,11 @@ namespace WSR.Core.Helpers
                 List<AFElement> elementsList = elements.Select(e => (AFElement)e).ToList();
 
                 // forces full load of elements
-                AFElement.LoadElements(elementsList);
+                AFElement.LoadElementsToDepth(elementsList,true,5,1000000);
 
                 // if you'd like to filter the elements by attributes... 
                 // however this would be sub-optimal, it would be better to filter directly on the FindInstanciated Elements query.
-                //elementsList = elementsList.Where(e => (bool)e.Attributes["ReadEnabled"].GetValue().Value == true).ToList();
+                //i.e. elementsList = elementsList.Where(e => (bool)e.Attributes["attribute to filter"].GetValue().Value == true).ToList();
                 foreach (var afElement in elementsList)
                 {
                     elementsConcurrentQueue.Enqueue(afElement);

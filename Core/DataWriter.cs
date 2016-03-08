@@ -5,13 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using WSR.Core.Helpers;
+using DCS.Core.Helpers;
 using log4net;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Data;
 using Quartz;
 
-namespace WSR.Core
+namespace DCS.Core
 {
     /// <summary>
     /// This class exposes a ConcurrentQueue to make sure information can be gathered smotthly form other threads.
@@ -25,7 +25,7 @@ namespace WSR.Core
         public static readonly ConcurrentQueue<List<AFValue>> DataQueue = new ConcurrentQueue<List<AFValue>>();
         
 
-        public void Run()
+        public void FlushData()
         {
             WriteData();
         }
@@ -42,7 +42,8 @@ namespace WSR.Core
             // gets all currently available values from the queue
             while (SharedData.DataWriterQueue.TryDequeue(out values))
             {
-                allValues.AddRange(values);
+                if(values!=null)
+                    allValues.AddRange(values);
             }
 
             // writes data only if there is data

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using DCS.Core.Configuration;
 using log4net;
 using Nancy;
 using Nancy.Bootstrapper;
@@ -8,7 +10,7 @@ using Nancy.Conventions;
 using Nancy.Hosting.Self;
 using Nancy.TinyIoc;
 
-namespace WSR.Core.WebConfig
+namespace DCS.Core.WebConfig
 {
 
     public sealed class WebHost : IDisposable
@@ -16,6 +18,7 @@ namespace WSR.Core.WebConfig
         static readonly ILog _logger = LogManager.GetLogger(typeof(WebHost));
         private static WebHost _webHost;
         private NancyHost _nancyHost;
+        private bool _isStarted;
 
         public static WebHost Instance
         {
@@ -31,6 +34,9 @@ namespace WSR.Core.WebConfig
 
         private WebHost()
         {
+
+            if(Config.Settings==null)
+                return;
 
             _logger.InfoFormat("Creating and applying configuration to Web Host");
 
@@ -60,6 +66,7 @@ namespace WSR.Core.WebConfig
             try
             {
                 _nancyHost.Start();
+                _isStarted = true;
             }
             catch (Exception ex)
             {
@@ -73,7 +80,8 @@ namespace WSR.Core.WebConfig
 
         public void Dispose()
         {
-            _nancyHost.Dispose();
+            if(_isStarted)
+                _nancyHost?.Dispose();
         }
         
 
@@ -106,7 +114,8 @@ namespace WSR.Core.WebConfig
     {
         public string GetRootPath()
         {
-            return Path.Combine(Directory.GetCurrentDirectory(), "WebConfig");
+            var applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) ?? "";
+            return Path.Combine(applicationDirectory, "WebConfig");
         }
     }
 

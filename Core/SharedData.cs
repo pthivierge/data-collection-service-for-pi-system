@@ -8,7 +8,7 @@ using OSIsoft.AF.Asset;
 using Quartz;
 using Quartz.Impl;
 
-namespace WSR.Core
+namespace DCS.Core
 {
     public static class SharedData
     {

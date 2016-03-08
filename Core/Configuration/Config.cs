@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using log4net;
 using Newtonsoft.Json;
 
-namespace WSR.Core.Configuration
+namespace DCS.Core.Configuration
 {
     public static class Config
     {
@@ -21,6 +22,11 @@ namespace WSR.Core.Configuration
             Load();
         }
 
+        public static bool IsLoaded()
+        {
+            return Settings != null;
+        }
+
 
         public static void Load()
         {
@@ -28,19 +34,22 @@ namespace WSR.Core.Configuration
 
             try
             {
-                if (File.Exists(ConfigurationFileName))
+                var applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) ?? "";
+                var configFile = Path.Combine(applicationDirectory, ConfigurationFileName);
+
+                if (File.Exists(configFile))
                 {
-                    Settings = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(ConfigurationFileName));
+                    Settings = JsonConvert.DeserializeObject<RootObject>(File.ReadAllText(configFile));
                 }
                 else
                 {
                     Logger.Fatal("Could not load application settings.");
-                    throw new FileNotFoundException(string.Format("File {0} was not found",ConfigurationFileName));
+                    throw new FileNotFoundException(string.Format("File {0} was not found", configFile));
                 }
             }
             catch (Exception ex)
             {
-                Logger.Error("Could not load settings");
+                Logger.Error(ex);
             }
             
            

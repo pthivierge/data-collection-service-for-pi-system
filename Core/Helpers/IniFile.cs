@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 
-namespace WSR.Core.SettingsMgmt
+namespace DCS.Core.SettingsMgmt
 {
     /// <summary>
     ///     Provides methods for reading and writing to an INI file.

@@ -2,7 +2,7 @@
 using log4net;
 using Quartz;
 
-namespace WSR.Core.Scheduler
+namespace DCS.Core.Scheduler
 {
     public sealed class CronTask : IJob
     {

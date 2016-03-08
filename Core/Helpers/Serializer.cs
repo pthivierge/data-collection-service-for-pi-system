@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace WSR.Core.Helpers
+namespace DCS.Core.Helpers
 {
     public static class Serializer
     {

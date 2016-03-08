@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DCS.Core.Helpers;
 using log4net;
 using OSIsoft.AF;
 using OSIsoft.AF.Asset;
-using WSR.Core.Helpers;
 
-namespace WSR.Core.DataReaders
+namespace DCS.Core.DataReaders
 {
     /// <summary>
     /// This class is a base implementation of a data reader that gets its configuration from AF elements
@@ -82,6 +82,11 @@ namespace WSR.Core.DataReaders
         public virtual void CollectData()
         {
             Logger.DebugFormat("Data collection started for {0} elements",_afElementsQueue.Count);
+            if(_afElementsQueue.Count==0)
+            { 
+                Logger.InfoFormat("Data collection cannot proceed, there is not AF Element loaded yet.");
+            }
+
 
             Parallel.ForEach(_afElementsQueue, new ParallelOptions() {MaxDegreeOfParallelism = 10 }, (element) =>
             {
