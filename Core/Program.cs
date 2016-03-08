@@ -1,6 +1,6 @@
 ﻿using System;
 using DCS.Core.Configuration;
-using DCS.Core.DataReaders.FakeRandomDataReader;
+using DCS.Core.DataReaders;
 using DCS.Core.Scheduler;
 using log4net;
 using Quartz;
@@ -12,12 +12,12 @@ namespace DCS.Core
         static readonly ILog _logger = LogManager.GetLogger(typeof(Program));
         public static DataReadersManager DataReadersManager;
         public static DataWriter DataWriter;
-        public static CronScheduler _scheduler=new CronScheduler();
+        public static CronScheduler _scheduler = new CronScheduler();
 
 
         public static void RunScheduler()
         {
-        
+
 
             Program.DataReadersManager = new DataReadersManager();
             Program.DataWriter = new DataWriter();
@@ -31,12 +31,19 @@ namespace DCS.Core
                     switch (reader.ReaderType)
                     {
                         case "RandomReader":
-                        {
-                            var newReader = new FakeRandomBaseDataReader(reader.AFServerName, reader.AFDatabaseName,reader.AFElementTemplateName);
-                            _scheduler.AddTask(reader.ReaderTaskDescription, reader.DataCollectionPeriod, new Action(newReader.CollectData));
-                            DataReadersManager.DataReaders.Add(newReader);
-                            break;
-                        }
+                            {
+                                var newReader = new FakeRandomBaseDataReader(reader.AFServerName, reader.AFDatabaseName, reader.AFElementTemplateName);
+                                _scheduler.AddTask(reader.ReaderTaskDescription, reader.DataCollectionPeriod, new Action(newReader.CollectData));
+                                DataReadersManager.DataReaders.Add(newReader);
+                                break;
+                            }
+                        case "GitHubReader":
+                            {
+                                var newReader = new GitHubDataReader(reader.AFServerName, reader.AFDatabaseName, reader.AFElementTemplateName);
+                                _scheduler.AddTask(reader.ReaderTaskDescription, reader.DataCollectionPeriod, new Action(newReader.CollectData));
+                                DataReadersManager.DataReaders.Add(newReader);
+                                break;
+                            }
                     }
                 }
 
@@ -46,7 +53,7 @@ namespace DCS.Core
 
             }
 
-            
+
 
             _logger.InfoFormat("AF Elements structure refresh period is set to : {0}", Config.Settings.MainSettings.CronPeriod_ConfigurationRefresh);
             _logger.InfoFormat("Data write period is set to : {0}", Config.Settings.MainSettings.CronPeriod_DataWrite);
@@ -57,8 +64,8 @@ namespace DCS.Core
             Program.DataReadersManager.InitializeReaders();
 
             //_logger.InfoFormat("configuring scheduler to run tasks periodically");
-            _scheduler.AddTask("Refreshing configuration", Config.Settings.MainSettings.CronPeriod_ConfigurationRefresh,new Action(DataReadersManager.RefreshReadersConfiguration));
-            _scheduler.AddTask("Writing data to the PI System", Config.Settings.MainSettings.CronPeriod_DataWrite, new Action(DataWriter.Run));
+            _scheduler.AddTask("Refreshing configuration", Config.Settings.MainSettings.CronPeriod_ConfigurationRefresh, new Action(DataReadersManager.RefreshReadersConfiguration));
+            _scheduler.AddTask("Writing data to the PI System", Config.Settings.MainSettings.CronPeriod_DataWrite, new Action(DataWriter.FlushData));
             _scheduler.Start();
         }
 
@@ -68,5 +75,5 @@ namespace DCS.Core
             _scheduler?.Stop();
         }
     }
-    
+
 }

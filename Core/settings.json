@@ -3,24 +3,19 @@
     "CronPeriod_DataWrite": "0/30 * * * * ?",
     "CronPeriod_ConfigurationRefresh": "0 5 * * * ?",
     "WebConfigPort": "9999"
-
   },
+  "GitHubSettings": {
+    "AppName": "0/30 * * * * ?",
+  },
+
   "ReadersConfiguration": [
     {
-      "ReaderType": "RandomReader",
-      "ReaderTaskDescription": "Random data reader",
-      "AFDatabaseName": "WebServiceDataReader",
-      "AFElementTemplateName": "RandomDataReader",
+      "ReaderType": "GitHubReader",
+      "ReaderTaskDescription": "Collect data from a GitHub Organisation",
+      "AFDatabaseName": "GitHub",
+      "AFElementTemplateName": "GitHubOrg",
       "AFServerName": "megatron",
-      "DataCollectionPeriod": "0/5 * * * * ?"
-    },
-    {
-      "ReaderType": "RandomReader",
-      "ReaderTaskDescription": "Random data reader for template #2",
-      "AFDatabaseName": "WebServiceDataReader",
-      "AFElementTemplateName": "RandomDataReader2",
-      "AFServerName": "megatron",
-      "DataCollectionPeriod": "0/5 * * * * ?"
+      "DataCollectionPeriod": "0 0/5 * * * ?"
     }
   ],
   "DebugSettings": {
