@@ -2,7 +2,10 @@ using System;
 using System.Configuration.Install;
 using System.Reflection;
 using System.ServiceProcess;
+using CommandLine;
 using log4net;
+using WSR.Core;
+using WSR.Core.WebConfig;
 
 namespace WSR.Service
 {
@@ -21,16 +24,40 @@ namespace WSR.Service
             if (Environment.UserInteractive)
             {
                 _logger.Info("Starting service interractively");
+                
+                var options = new CommandLineOptions();
 
-                string parameter = string.Concat(args);
-                switch (parameter)
+                if (Parser.Default.ParseArguments(args, options))
                 {
-                    case "--install":
+                    if (options.Run)
+                    {
+                        WebHost.Instance.Start();
+                        Core.Program.RunScheduler();
+
+                        Console.WriteLine("press a key to stop the data collection");
+                        Console.ReadKey();
+
+
+                        Core.Program.StopScheduler();
+
+                        WebHost.Instance.Dispose();
+                        Console.WriteLine("Stopped");
+
+                    }
+
+                    if (options.Install)
+                    {
                         ManagedInstallerClass.InstallHelper(new[] { Assembly.GetExecutingAssembly().Location });
-                        break;
-                    case "--uninstall":
+                    }
+
+                    if (options.Uninstall)
+                    {
                         ManagedInstallerClass.InstallHelper(new[] { "/u", Assembly.GetExecutingAssembly().Location });
-                        break;
+                    }
+                    
+                    // exit ok
+                    Environment.Exit(0);
+                    
                 }
 
                 

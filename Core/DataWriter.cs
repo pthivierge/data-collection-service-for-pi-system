@@ -25,7 +25,7 @@ namespace WSR.Core
         public static readonly ConcurrentQueue<List<AFValue>> DataQueue = new ConcurrentQueue<List<AFValue>>();
         
 
-        public void RunOnce()
+        public void Run()
         {
             WriteData();
         }

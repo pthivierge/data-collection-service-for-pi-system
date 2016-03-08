@@ -6,7 +6,7 @@
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{1FBEA0AD-EA46-4053-A2D3-151BB5DB49F3}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>WSR.Service</RootNamespace>
     <AssemblyName>WSRService</AssemblyName>
@@ -78,13 +78,16 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
-      <HintPath>..\packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
+    <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -99,6 +102,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommandLineOptions.cs" />
     <Compile Include="ServiceInstaller.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -131,10 +135,6 @@
     <ProjectReference Include="..\Core\WSR.Core.csproj">
       <Project>{de39bf39-c91d-4e1e-897f-a20e2ac7fe6e}</Project>
       <Name>WSR.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\ApplicationSettings\WSR.Settings.csproj">
-      <Project>{B217D8F1-458A-4C3F-9614-080D520E7C0B}</Project>
-      <Name>WSR.Settings</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
@@ -176,6 +176,7 @@ if not exist "%25output%25\bin" mkdir "%25output%25\bin"
 
 robocopy "$(TargetDir)." "%25output%25\." $(TargetName).exe $(TargetName).pdb *.config *.ini *.ico *.html *.cfg.xml /XO /NJH /NP /S
 robocopy "$(TargetDir)." "%25output%25\bin\." *.dll /XO /NJH /NP /S
+robocopy "$(TargetDir)\WebConfig" "%25output%25\webconfig" *.* /XO /NJH /NP /S
 if errorlevel 4 goto BuildEventFailed
 if errorlevel 0 goto end
 

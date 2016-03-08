@@ -76,12 +76,36 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
+      <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.3.0.0\lib\net40\Common.Logging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Common.Logging.Core, Version=3.0.0.0, Culture=neutral, PublicKeyToken=af08829b84f0328e, processorArchitecture=MSIL">
+      <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Fitbit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Fitbit.NET.1.1.1\lib\net45\Fitbit.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nancy, Version=1.4.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.1.4.3\lib\net40\Nancy.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Nancy.Hosting.Self, Version=1.4.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Nancy.Hosting.Self.1.4.1\lib\net40\Nancy.Hosting.Self.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="OSIsoft.AFSDK, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6238be57836698e6, processorArchitecture=MSIL">
@@ -107,13 +131,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="QuartzJobs.cs" />
+    <Compile Include="Configuration\Config.cs" />
+    <Compile Include="Configuration\JsonSettingsDefinitions.cs" />
+    <Compile Include="DataReaders\IDataReader.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="DataReadersManager.cs" />
-    <Compile Include="DataReaders\DataReader.cs" />
-    <Compile Include="DataReaders\FakeRandomDataReader\FakeRandomDataReader.cs" />
+    <Compile Include="DataReaders\BaseDataReader.cs" />
+    <Compile Include="DataReaders\FakeRandomDataReader\FakeRandomBaseDataReader.cs" />
     <Compile Include="Helpers\AFConnectionHelper.cs" />
     <Compile Include="Helpers\AFSDKHelpers.cs" />
     <Compile Include="Helpers\AFUpdater.cs" />
+    <Compile Include="Scheduler\CronScheduler.cs" />
+    <Compile Include="Scheduler\CronTask.cs" />
     <Compile Include="SharedData.cs" />
     <Compile Include="DataWriter.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
@@ -124,21 +153,54 @@
     <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\IniFile.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\ApplicationSettings\WSR.Settings.csproj">
-      <Project>{B217D8F1-458A-4C3F-9614-080D520E7C0B}</Project>
-      <Name>WSR.Settings</Name>
-    </ProjectReference>
+    <Compile Include="WebConfig\WebHost.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\app.config">
       <Link>app.config</Link>
     </None>
     <None Include="packages.config" />
+    <None Include="settings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="WebConfig\fonts\glyphicons-halflings-regular.eot" />
+    <None Include="WebConfig\fonts\glyphicons-halflings-regular.ttf" />
+    <None Include="WebConfig\fonts\glyphicons-halflings-regular.woff" />
+    <None Include="WebConfig\fonts\glyphicons-halflings-regular.woff2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="DataReaders\GitHub\" />
+    <Folder Include="WebConfig\content\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="WebConfig\css\bootstrap-theme.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\css\bootstrap.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="WebConfig\js\angular-route.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\js\angular.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\js\bootstrap.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\views\home\pages\about.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\js\script.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\views\home\index.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="WebConfig\views\home\pages\home.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />

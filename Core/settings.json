@@ -1,0 +1,29 @@
+﻿{
+  "MainSettings": {
+    "CronPeriod_DataWrite": "0/30 * * * * ?",
+    "CronPeriod_ConfigurationRefresh": "0 5 * * * ?",
+    "WebConfigPort": "9999"
+
+  },
+  "ReadersConfiguration": [
+    {
+      "ReaderType": "RandomReader",
+      "ReaderTaskDescription": "Random data reader",
+      "AFDatabaseName": "WebServiceDataReader",
+      "AFElementTemplateName": "RandomDataReader",
+      "AFServerName": "megatron",
+      "DataCollectionPeriod": "0/5 * * * * ?"
+    },
+    {
+      "ReaderType": "RandomReader",
+      "ReaderTaskDescription": "Random data reader for template #2",
+      "AFDatabaseName": "WebServiceDataReader",
+      "AFElementTemplateName": "RandomDataReader2",
+      "AFServerName": "megatron",
+      "DataCollectionPeriod": "0/5 * * * * ?"
+    }
+  ],
+  "DebugSettings": {
+    "StartDebuggerOnStart": false
+  }
+}
