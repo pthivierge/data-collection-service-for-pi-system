@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Time;
 
-namespace DCS.Core.DataReaders.FakeRandomDataReader
+namespace DCS.Core.DataReaders
 {
     /// <summary>
     /// This data reader can be used to generate random data when you need to test data collection.
@@ -16,6 +16,19 @@ namespace DCS.Core.DataReaders.FakeRandomDataReader
     /// LowValue:  An integer static attribute that defines the lowest random value
     /// HighValue: An integer static attribute that defines the highest random value
     /// </summary>
+    /// 
+    /*
+
+    JSON Settings to configure this data reader.
+    
+    "ReaderType": "RandomReader",
+    "ReaderTaskDescription": "Random data reader",
+    "AFDatabaseName": "WebServiceDataReader",
+    "AFElementTemplateName": "RandomDataReader",
+    "AFServerName": "megatron",
+    "DataCollectionPeriod": "0/5 * * * * ?"
+    
+    */
     public class FakeRandomBaseDataReader : BaseDataReader, IDataReader 
     {
         Random _randomGenerator=new Random();
@@ -32,6 +45,7 @@ namespace DCS.Core.DataReaders.FakeRandomDataReader
 
             return new List<AFValue>() {afValue};
         }
+
 
         public FakeRandomBaseDataReader(string afServerName, string afDataBaseName, string elementTemplateName) : base(afServerName, afDataBaseName, elementTemplateName)
         {
