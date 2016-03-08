@@ -25,7 +25,7 @@ namespace DCS.Core
         public static readonly ConcurrentQueue<List<AFValue>> DataQueue = new ConcurrentQueue<List<AFValue>>();
         
 
-        public void Run()
+        public void FlushData()
         {
             WriteData();
         }
@@ -42,7 +42,8 @@ namespace DCS.Core
             // gets all currently available values from the queue
             while (SharedData.DataWriterQueue.TryDequeue(out values))
             {
-                allValues.AddRange(values);
+                if(values!=null)
+                    allValues.AddRange(values);
             }
 
             // writes data only if there is data
