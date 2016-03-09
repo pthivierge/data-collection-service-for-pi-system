@@ -36,9 +36,14 @@ namespace GitHubDataPlugin
 
             //getting repository settings from the element:
             var owner = GetAttributeValue<string>(orgElement, "Owner");
+            var gitHubCredentialToken = GetAttributeValue<string>(orgElement, "GitHubCredentialToken");
+            var gitHubProductName = GetAttributeValue<string>(orgElement, "GitHubProductName");
+
+            if (string.IsNullOrEmpty(gitHubCredentialToken) || string.IsNullOrEmpty(gitHubProductName))
+                throw new GitHubDataCollectorHasInvalidConfiguration();
             
-            var github = new GitHubClient(new ProductHeaderValue("yourproductname"));
-            github.Connection.Credentials = new Credentials("yourgithubtoken");
+            var github = new GitHubClient(new ProductHeaderValue(gitHubProductName));
+            github.Connection.Credentials = new Credentials(gitHubCredentialToken);
 
             // Checking the rate limit
             var rateLimit = github.Miscellaneous.GetRateLimits().Result.Resources.Core;
@@ -135,11 +140,17 @@ namespace GitHubDataPlugin
         public void SetSettings(DataCollectorSettings settings)
         {
             _settings = settings;
-
             AfDatabaseName = _settings.AFDatabaseName;
             AfElementTemplateName = _settings.AFElementTemplateName;
             AfServerName = _settings.AFServerName;
         }
 
+
+
+    }
+
+    public class GitHubDataCollectorHasInvalidConfiguration : Exception
+    {
+        public GitHubDataCollectorHasInvalidConfiguration() : base("The collector could not initialize because the settings were not valid.") { }
     }
 }
