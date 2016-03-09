@@ -18,9 +18,9 @@ namespace DCS.Core.Configuration
         public string WebConfigPort { get; set; }
     }
 
-    public class ReadersConfiguration
+    public class DataCollectorSettings
     {
-        public string ReaderType { get; set; }
+        public string PluginFileName { get; set; }
         public string ReaderTaskDescription { get; set; }
         public string AFDatabaseName { get; set; }
         public string AFElementTemplateName { get; set; }
@@ -38,7 +38,7 @@ namespace DCS.Core.Configuration
     public class RootObject
     {
         public MainSettings MainSettings { get; set; }
-        public List<ReadersConfiguration> ReadersConfiguration { get; set; }
+        public List<DataCollectorSettings> DataCollectorsSettings { get; set; }
         public DebugSettings DebugSettings { get; set; }
     }
 

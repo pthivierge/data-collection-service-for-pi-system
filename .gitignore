@@ -196,3 +196,4 @@ FakesAssemblies/
 *.opt
 Solution/ILMerge.exe
 SolutionCleaner.exe
+/publishTo-PISquare.bat

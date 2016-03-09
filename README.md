@@ -10,7 +10,7 @@ To get data from FitBit, this project makes use of the FitBit.Net library.  This
 
 The concept is really basic, there are 3 separate threads running in a producer/consumer fashion:
 + Configuration manager
-+ Data Readers Manager
++ data collectors Manager
 + Data Writer
 
 The code is not yet fully optimized, configuration manager refresh has yet to be worked on.

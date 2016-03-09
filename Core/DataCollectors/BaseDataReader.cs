@@ -12,26 +12,24 @@ using OSIsoft.AF.Asset;
 namespace DCS.Core.DataReaders
 {
     /// <summary>
-    /// This class is a base implementation of a data reader that gets its configuration from AF elements
+    /// This class is a base implementation of a data collector that gets its configuration from AF elements
     /// 
     /// </summary>
     public abstract class BaseDataReader
     {
         protected ILog Logger => LogManager.GetLogger(GetType());
 
-        protected string _afServerName;
-        protected string _afDatabaseName;
-        protected string _afElementTemplateName;
+        protected string AfServerName { get; set; }
+        protected string AfDatabaseName { get; set; }
+        protected string AfElementTemplateName { get; set; }
         protected AFUpdater _afUpdater;
         protected ConcurrentQueue<AFElement> _afElementsQueue=new ConcurrentQueue<AFElement>();
         protected AFConnectionHelper _afConnectionHelper;
 
 
-        protected BaseDataReader(string afServerName, string afDataBaseName, string elementTemplateName)
+        protected BaseDataReader()
         {
-            _afServerName = afServerName;
-            _afDatabaseName = afDataBaseName;
-            _afElementTemplateName = elementTemplateName;
+
         }
 
         /// <summary>
@@ -61,12 +59,12 @@ namespace DCS.Core.DataReaders
                 Logger.InfoFormat("Starting configuration");
                 AFDatabase database;
                 
-                _afConnectionHelper = AFConnectionHelper.ConnectAndGetDatabase(_afServerName, _afDatabaseName, out database);
+                _afConnectionHelper = AFConnectionHelper.ConnectAndGetDatabase(AfServerName, AfDatabaseName, out database);
 
-                if(!database.ElementTemplates.Contains(_afElementTemplateName))
+                if(!database.ElementTemplates.Contains(AfElementTemplateName))
                     throw new AFElementTemplateDoNotExistException();
 
-                AFSDKHelpers.LoadElementsByTemplate(database, database.ElementTemplates[_afElementTemplateName], _afElementsQueue);
+                AFSDKHelpers.LoadElementsByTemplate(database, database.ElementTemplates[AfElementTemplateName], _afElementsQueue);
 
             }
             catch (Exception ex)

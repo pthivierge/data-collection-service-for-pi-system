@@ -88,10 +88,6 @@
       <HintPath>..\packages\Common.Logging.Core.3.0.0\lib\net40\Common.Logging.Core.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Fitbit, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fitbit.NET.1.1.1\lib\net45\Fitbit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="log4net, Version=1.2.15.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
@@ -108,20 +104,12 @@
       <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit, Version=0.18.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Octokit.0.18.0\lib\net45\Octokit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="OSIsoft.AFSDK, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6238be57836698e6, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <Private>False</Private>
     </Reference>
     <Reference Include="Quartz, Version=2.3.3.0, Culture=neutral, PublicKeyToken=f6b8c98a402cc8a4, processorArchitecture=MSIL">
       <HintPath>..\packages\Quartz.2.3.3\lib\net40\Quartz.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="RestSharp, Version=104.4.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Fitbit.NET.1.1.1\lib\net45\RestSharp.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
@@ -138,12 +126,10 @@
   <ItemGroup>
     <Compile Include="Configuration\Config.cs" />
     <Compile Include="Configuration\JsonSettingsDefinitions.cs" />
-    <Compile Include="DataReaders\GitHub\GitHubDataReader.cs" />
-    <Compile Include="DataReaders\IDataReader.cs" />
+    <Compile Include="DataCollectors\IDataCollector.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="DataReadersManager.cs" />
-    <Compile Include="DataReaders\BaseDataReader.cs" />
-    <Compile Include="DataReaders\FakeRandomDataReader\FakeRandomBaseDataReader.cs" />
+    <Compile Include="DataCollectors\BaseDataReader.cs" />
     <Compile Include="Helpers\AFConnectionHelper.cs" />
     <Compile Include="Helpers\AFSDKHelpers.cs" />
     <Compile Include="Helpers\AFUpdater.cs" />
@@ -152,9 +138,7 @@
     <Compile Include="SharedData.cs" />
     <Compile Include="DataWriter.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
-    <Compile Include="DataReaders\FitBit\FitBitHelpers.cs" />
     <Compile Include="Helpers\General.cs" />
-    <Compile Include="DataReaders\FitBit\FitBitDataReader.cs" />
     <Compile Include="Helpers\PropertySorter.cs" />
     <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

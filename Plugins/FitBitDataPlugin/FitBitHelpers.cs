@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Fitbit.Models;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Time;
 
-namespace DCS.Core.Helpers
+namespace FitBitDataPlugin
 {
     public static class FitBitHelpers
     {
@@ -43,5 +39,7 @@ namespace DCS.Core.Helpers
             
             return values;
         }
+
+
     }
 }

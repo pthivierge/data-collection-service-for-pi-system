@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using DCS.Core.DataCollectors;
 using DCS.Core.DataReaders;
 using log4net;
 using OSIsoft.AF;
@@ -13,7 +14,7 @@ using DCS.Core.Helpers;
 namespace DCS.Core
 {
     /// <summary>
-    /// Maintains the list of Data Readers into memory
+    /// Maintains the list of data collectors into memory
     /// Contains methods to make initialisation and / or periodic configuration update for the devices.
     /// </summary>
     public class DataReadersManager : IDisposable
@@ -21,7 +22,7 @@ namespace DCS.Core
         ILog _logger = LogManager.GetLogger(typeof(DataReadersManager));
         private CancellationTokenSource _cancellationTokenSource = new CancellationTokenSource();
         private CancellationToken _cancellationToken;
-        public List<IDataReader> DataReaders=new List<IDataReader>();
+        public List<IDataCollector> DataReaders=new List<IDataCollector>();
 
         private ManualResetEvent dataCollectionCompleted = new ManualResetEvent(true);
         private ManualResetEvent refreshCompleted = new ManualResetEvent(true);
@@ -40,7 +41,7 @@ namespace DCS.Core
         public void InitializeReaders()
         {
 
-            _logger.Info("Initializing data readers");
+            _logger.Info("Initializing data collectors");
 
             initCompleted.Reset();
             try

@@ -15,7 +15,7 @@ namespace DCS.Core
 {
     /// <summary>
     /// This class exposes a ConcurrentQueue to make sure information can be gathered smotthly form other threads.
-    /// This class is dedicated to write the data collected by data readers into the PI System
+    /// This class is dedicated to write the data collected by data collectors into the PI System
     /// 
     /// </summary> 
     public class DataWriter

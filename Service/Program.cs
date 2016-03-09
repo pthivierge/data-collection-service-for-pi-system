@@ -1,5 +1,6 @@
 using System;
 using System.Configuration.Install;
+using System.IO;
 using System.Net.Mime;
 using System.Reflection;
 using System.ServiceProcess;
@@ -8,6 +9,7 @@ using DCS.Core.WebConfig;
 using log4net;
 using DCS.Core;
 using DCS.Core.Configuration;
+using DCS.Core.DataCollectors;
 using DCS.Core.DataReaders;
 
 namespace DCS.Service
@@ -56,34 +58,42 @@ namespace DCS.Service
 
                         var dataWriter = new DataWriter();
 
-                        // Here are added the configured data readers
-                        foreach (ReadersConfiguration reader in Config.Settings.ReadersConfiguration)
+                        // Here are added the configured data collectors
+                        foreach (DataCollectorSettings collectorSettings in Config.Settings.DataCollectorsSettings)
                         {
-                            if (!string.IsNullOrEmpty(reader.ReaderType))
+
+                            try
                             {
-                                switch (reader.ReaderType)
+                                if (!string.IsNullOrEmpty(collectorSettings.PluginFileName))
                                 {
-                                    case "RandomReader":
+                                    var applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) ?? "";
+                                    Assembly pluginAssembly = Assembly.LoadFrom(Path.Combine(applicationDirectory, "plugins", collectorSettings.PluginFileName));
+                                    foreach (var type in pluginAssembly.GetTypes())
+                                    {
+                                        if (type.GetInterface(typeof(IDataCollector).Name) != null)
                                         {
-                                            var newReader = new FakeRandomBaseDataReader(reader.AFServerName, reader.AFDatabaseName, reader.AFElementTemplateName);
-                                            newReader.Inititialize();
-                                            newReader.CollectData();
-                                            break;
+                                            var newCollector = Activator.CreateInstance(type) as IDataCollector;
+                                            if (newCollector != null)
+                                            {
+                                                newCollector.SetSettings(collectorSettings);
+                                                newCollector.Inititialize();
+                                                newCollector.CollectData();
+                                            }
+                                            else
+                                            {
+                                                _logger.Error("Data Collector could not be loaded");
+                                            }
                                         }
-                                    case "GitHubReader":
-                                        {
-                                            var newReader = new GitHubDataReader(reader.AFServerName, reader.AFDatabaseName, reader.AFElementTemplateName);
-                                            newReader.Inititialize();
-                                            newReader.CollectData();
-                                            break;
-                                        }
+                                    }
+
                                 }
+                            }
+                            catch (Exception ex)
+                            {
+                                _logger.Error(ex);
                             }
 
                             dataWriter.FlushData();
-
-                            
-
 
                         }
                     }

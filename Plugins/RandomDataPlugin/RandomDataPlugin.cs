@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Messaging;
-using System.Text;
-using System.Threading.Tasks;
+using DCS.Core.Configuration;
+using DCS.Core.DataCollectors;
+using DCS.Core.DataReaders;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Time;
 
-namespace DCS.Core.DataReaders
+namespace RandomDataPlugin
 {
     /// <summary>
-    /// This data reader can be used to generate random data when you need to test data collection.
+    /// This data collector can be used to generate random data when you need to test data collection.
     /// It requires a database that contains elements based on an ElementTemplate with the following Attributes: 
     /// value:     the PI Point where the data will be written
     /// LowValue:  An integer static attribute that defines the lowest random value
@@ -19,20 +18,21 @@ namespace DCS.Core.DataReaders
     /// 
     /*
 
-    JSON Settings to configure this data reader.
+    JSON Settings to configure this data collector.
     
     "ReaderType": "RandomReader",
-    "ReaderTaskDescription": "Random data reader",
+    "ReaderTaskDescription": "Random data collector",
     "AFDatabaseName": "WebServiceDataReader",
     "AFElementTemplateName": "RandomDataReader",
     "AFServerName": "megatron",
     "DataCollectionPeriod": "0/5 * * * * ?"
     
     */
-    public class FakeRandomBaseDataReader : BaseDataReader, IDataReader 
+    public class RandomDataPlugin : BaseDataReader, IDataCollector 
     {
         Random _randomGenerator=new Random();
-        
+        private DataCollectorSettings _settings;
+
 
         public override List<AFValue> ReadValues(AFElement element)
         {
@@ -47,8 +47,23 @@ namespace DCS.Core.DataReaders
         }
 
 
-        public FakeRandomBaseDataReader(string afServerName, string afDataBaseName, string elementTemplateName) : base(afServerName, afDataBaseName, elementTemplateName)
+
+        public DataCollectorSettings GetSettings()
         {
+            return _settings;
+        }
+
+        public void SetSettings(DataCollectorSettings settings)
+        {
+            _settings = settings;
+        }
+
+
+        public RandomDataPlugin()
+        {
+            AfDatabaseName = _settings.AFDatabaseName;
+            AfElementTemplateName = _settings.AFElementTemplateName;
+            AfServerName = _settings.AFServerName;
         }
     }
 }

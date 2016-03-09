@@ -8,13 +8,13 @@
     "AppName": "0/30 * * * * ?",
   },
 
-  "ReadersConfiguration": [
+  "DataCollectorsSettings": [
     {
-      "ReaderType": "GitHubReader",
+      "PluginFileName": "GitHubDataPlugin\\GitHubDataPlugin.dll",
       "ReaderTaskDescription": "Collect data from a GitHub Organisation",
+      "AFServerName": "megatron",
       "AFDatabaseName": "GitHub",
       "AFElementTemplateName": "GitHubOrg",
-      "AFServerName": "megatron",
       "DataCollectionPeriod": "0 0/5 * * * ?"
     }
   ],
