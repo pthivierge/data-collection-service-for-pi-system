@@ -172,28 +172,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>if $(ConfigurationName)==Release goto release
-goto copytoBuildFolder
-
-::----------------------------------------
-:: Merging the dlls togheter in case of a release
-::----------------------------------------
-:release
-:: http://stackoverflow.com/questions/9376/ilmerge-best-practices
-rem Create a single .exe that combines the root .exe and all subassemblies.
-del *.pdb
-"$(SolutionDir)ILMerge.exe" /out:"$(TargetDir)$(TargetName).all.exe" "$(TargetDir)$(TargetName).exe" "$(TargetDir)*.dll" /target:exe /targetplatform:v4,C:\Windows\Microsoft.NET\Framework64\v4.0.30319 /wildcards /internalize
-rem Remove all subassemblies.
-del *.dll
-
-rem Delete the original, non-combined .exe.
-del "$(TargetDir)$(TargetName).exe"
-rem Rename the combined .exe and .pdb to the original project name we started with.
-
-ren "$(TargetDir)$(TargetName).all.exe" "$(TargetName).exe"
-ren "$(TargetDir)$(TargetName).all.pdb" "$(TargetName).pdb"
-
-::----------------------------------------
+    <PostBuildEvent>::----------------------------------------
 :: Copy to buid folder
 ::----------------------------------------
 :copytoBuildFolder
@@ -201,8 +180,8 @@ SET output="..\..\..\Build"
 if not exist "%25output%25" mkdir "%25output%25"
 if not exist "%25output%25\bin" mkdir "%25output%25\bin"
 
-robocopy "$(TargetDir)." "%25output%25\." $(TargetName).exe $(TargetName).pdb *.config *.ini *.ico *.html log4Net.xml settings.json /XO /NJH /NP /S
-robocopy "$(TargetDir)." "%25output%25\bin\." *.dll /XO /NJH /NP /S
+robocopy "$(TargetDir)." "%25output%25\." $(TargetName).exe $(TargetName).pdb *.config *.ini *.ico *.html log4Net.xml settings.json /XO /NJH /NP /S /XD plugins
+robocopy "$(TargetDir)." "%25output%25\bin\." *.dll /XO /NJH /NP /S /XD plugins
 robocopy "$(TargetDir)\WebConfig" "%25output%25\webconfig" *.* /XO /NJH /NP /S
 
 if errorlevel 4 goto BuildEventFailed

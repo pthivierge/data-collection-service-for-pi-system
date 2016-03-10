@@ -79,7 +79,7 @@ if not exist "%25output%25" mkdir "%25output%25"
 robocopy "$(TargetDir)." "%25output%25\." %25pluginName%25.dll %25dependencies%25 /XO /NJH /NP /S
 
 :: copy to service /bin project so plugin can be debuged from there when running the service from visual studio
-SET output2="$(SolutionDir)\Service\bin\$(ConfigurationName)\plugins\GitHubDataPlugin"
+SET output2="$(SolutionDir)\Service\bin\$(ConfigurationName)\plugins\%25pluginName%25"
 if not exist "%25output2%25" mkdir "%25output2%25"
 robocopy "$(TargetDir)." "%25output2%25\." %25pluginName%25.dll %25dependencies%25 /XO /NJH /NP /S
 
