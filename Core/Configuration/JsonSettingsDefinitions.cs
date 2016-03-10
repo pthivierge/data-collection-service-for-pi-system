@@ -28,6 +28,7 @@ namespace DCS.Core.Configuration
         public string DataCollectionPeriod { get; set; }
         public string APIUrl { get; set; }
         public string AppKey { get; set; }
+        public dynamic ExtendedSettings { get; set; }
     }
 
     public class DebugSettings
