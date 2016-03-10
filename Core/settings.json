@@ -1,21 +1,29 @@
 ﻿{
   "MainSettings": {
-    "CronPeriod_DataWrite": "0/30 * * * * ?",
+    "CronPeriod_DataWrite": "0/5 * * * * ?",
     "CronPeriod_ConfigurationRefresh": "0 5 * * * ?",
     "WebConfigPort": "9999"
   },
-  "GitHubSettings": {
-    "AppName": "0/30 * * * * ?",
-  },
-
   "DataCollectorsSettings": [
     {
       "PluginFileName": "GitHubDataPlugin\\GitHubDataPlugin.dll",
       "ReaderTaskDescription": "Collect data from a GitHub Organisation",
       "AFServerName": "megatron",
-      "AFDatabaseName": "GitHub",
+      "AFDatabaseName": "DCSTestDB",
       "AFElementTemplateName": "GitHubOrg",
-      "DataCollectionPeriod": "0 0/5 * * * ?"
+      "DataCollectionPeriod": "0 0/5 * * * ?",
+      "ExtendedSettings": {
+        "info": "you can use this object to custom settings to your plugin",
+        "setting": 0
+      }
+    },
+    {
+      "PluginFileName": "RandomDataPlugin\\RandomDataPlugin.dll",
+      "ReaderTaskDescription": "Returns random data",
+      "AFServerName": "megatron",
+      "AFDatabaseName": "DCSTestDB",
+      "AFElementTemplateName": "Random",
+      "DataCollectionPeriod": "0/10 * * * * ?"
     }
   ],
   "DebugSettings": {
