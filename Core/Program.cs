@@ -7,6 +7,7 @@ using DCS.Core.DataCollectors;
 using DCS.Core.DataReaders;
 using DCS.Core.Scheduler;
 using log4net;
+using log4net.Repository.Hierarchy;
 using Quartz;
 
 namespace DCS.Core
@@ -48,6 +49,7 @@ namespace DCS.Core
                                 {
                                     newCollector.SetSettings(collectorSettings);
                                 
+                                    _logger.InfoFormat("Adding task of type: {0} to scheduler with frequency {1}. Task description: {2}",type.Name,collectorSettings.DataCollectionPeriod,collectorSettings.ReaderTaskDescription);
                                     _scheduler.AddTask(collectorSettings.ReaderTaskDescription, collectorSettings.DataCollectionPeriod, new Action(newCollector.CollectData));
                                     DataReadersManager.DataReaders.Add(newCollector);
                                 }

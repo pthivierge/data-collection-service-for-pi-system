@@ -56,14 +56,11 @@ namespace RandomDataPlugin
         public void SetSettings(DataCollectorSettings settings)
         {
             _settings = settings;
-        }
 
-
-        public RandomDataPlugin()
-        {
             AfDatabaseName = _settings.AFDatabaseName;
             AfElementTemplateName = _settings.AFElementTemplateName;
             AfServerName = _settings.AFServerName;
         }
+
     }
 }
