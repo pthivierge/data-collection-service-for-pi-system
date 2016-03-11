@@ -6,6 +6,7 @@ using DCS.Core.Configuration;
 using DCS.Core.DataCollectors;
 using DCS.Core.DataReaders;
 using Octokit;
+using OSIsoft.AF;
 using OSIsoft.AF.Asset;
 using OSIsoft.AF.Time;
 
@@ -23,7 +24,7 @@ namespace GitHubDataPlugin
     /// APP Token for authentication
     /// <see cref="https://github.com/settings/developers"/>
     /// </summary>
-    public class GitHubDataReader : BaseDataReader,IDataCollector
+    public class GitHubDataReader : BaseDataReader, IDataCollector
     {
 
         DataCollectorSettings _settings;
@@ -41,7 +42,7 @@ namespace GitHubDataPlugin
 
             if (string.IsNullOrEmpty(gitHubCredentialToken) || string.IsNullOrEmpty(gitHubProductName))
                 throw new GitHubDataCollectorHasInvalidConfiguration();
-            
+
             var github = new GitHubClient(new ProductHeaderValue(gitHubProductName));
             github.Connection.Credentials = new Credentials(gitHubCredentialToken);
 
@@ -52,7 +53,7 @@ namespace GitHubDataPlugin
                 Logger.WarnFormat("Current rate limit exceeded. Only {0} left. Will reset at:{1}", rateLimit.Remaining, rateLimit.Reset);
                 return new List<AFValue>();
             }
-            
+
 
             // Read values from GitHub
             var repos = github.Repository.GetAllForOrg(owner).Result;
@@ -69,27 +70,21 @@ namespace GitHubDataPlugin
                     repoElement = new AFElement(repo.Name, orgElement.Database.ElementTemplates["repository"]);
                     orgElement.Elements.Add(repoElement);
                     orgElement.CheckIn();
-
-                    var wait=new ManualResetEvent(false);
-
-                    AFDataReference.CreateConfig(orgElement, true,
-                        (sender, args) =>
+                    
+                    var newTags=AFDataReference.CreateConfig(orgElement, true, (obj, afProgressEventArgs) =>
                         {
-                            Logger.Info("DataReference Tags creation completed");
-                            wait.Set();
-
+                           // here report progess
                         });
-                    wait.WaitOne(30000);
-                    Logger.InfoFormat("Tags Created for new element {0}",repoElement.Name);
+                    Logger.InfoFormat("{1} Tags Created for new element {0}", repoElement.Name,newTags);
 
                 }
                 else
                 {
                     repoElement = orgElement.Elements[repo.Name];
                 }
-                  
+
                 // pull requests
-                var pullRequests = github.PullRequest.GetAllForRepository(repo.Owner.Login,repo.Name);
+                var pullRequests = github.PullRequest.GetAllForRepository(repo.Owner.Login, repo.Name);
                 var pullRequestsCount = pullRequests.Result.Count;
 
                 // commits
@@ -112,9 +107,10 @@ namespace GitHubDataPlugin
                         new AFValue(repoElement.Attributes["HasIssues"], repo.HasIssues, AFTime.Now),
                         new AFValue(repoElement.Attributes["Open Issues"], repo.OpenIssuesCount, AFTime.Now),
                         new AFValue(repoElement.Attributes["HasWiki"], repo.HasWiki, AFTime.Now),
+                        new AFValue(repoElement.Attributes["Watchers"], github.Activity.Watching.GetAllWatchers(owner,repo.Name).Result.Count, AFTime.Now),
                     }
                 );
-                if (GetAttributeValue<DateTime>(repoElement, "CreatedAt")<=new DateTime(1970,1,1))
+                if (GetAttributeValue<DateTime>(repoElement, "CreatedAt") <= new DateTime(1970, 1, 1))
                 {
                     values.Add(new AFValue(repoElement.Attributes["CreatedAt"], repo.CreatedAt.LocalDateTime, AFTime.Now));
                 }
@@ -131,7 +127,7 @@ namespace GitHubDataPlugin
         {
             return (T)element.Attributes[attributeName].GetValue().Value;
         }
-        
+
         public DataCollectorSettings GetSettings()
         {
             return _settings;
