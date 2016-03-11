@@ -37,7 +37,7 @@ namespace DCS.Core.Scheduler
             var task = (CronTask)context.MergedJobDataMap.Get("task");
 
             // executes the task 
-            _logger.Info("Executing task : " + task.TaskName);
+            _logger.Debug("Executing task : " + task.TaskName);
             task._task();
         }
     }
