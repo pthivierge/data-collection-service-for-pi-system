@@ -1,13 +1,15 @@
-#web-service-reader-for-pi-system
+#data-collection-service-for-pi-system
 
-This project is a prototype built specifically to read data from the **Fitbit API**.
-It might evolve and provide a basic base of work that you could extent with your own APIs/Web Services.  
-However, the project is not there yet.  
+This project is a prototype built intitially to read data from the **Fitbit API** Web Service. It was completely refactored and is now built with a plugin model so more data sources can be supported.
 
-To get data from FitBit, this project makes use of the FitBit.Net library.  This simplifies a lot the data retrieval from FitBit.
+The FitBit data collector have not been updated after the refactoring so code is commented out.  If you need it you could use commented code to rewrite it in the new way.
 
 # How it works?
 
+**Plugins**  
+You should look at the existings plugins to know how to implement yours.  Settings can be passed to the data collector by using JSON configuration.  And current GitHub data collector also uses configuration from AF Elements.  This is quite useful to use AF Configuration as it can be protected with appropriate credentials (e.g. to protect your application API key, and having it not published in the settings file on GitHub.)
+
+**Data Collection**  
 The concept is really basic, there are 3 separate threads running in a producer/consumer fashion:
 + Configuration manager
 + data collectors Manager
@@ -23,7 +25,7 @@ But it implements some strategies for better performances with the PI System. ( 
 
 + Then use the command line and service code to write the code to call business code from the dll.
 
-+ After compiling:  use the /Build folder in the first level directory level to test the application. you may simply open a command line from there and use the FDS.CommandLine.exe.
++ After compiling:  use the /Build folder in the first level directory level to test the application.
 
 
 #License
