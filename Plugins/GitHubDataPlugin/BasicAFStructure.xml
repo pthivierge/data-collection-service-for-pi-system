@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OSIsoft.AF.xsd" SchemaVersion="2.0" SoftwareVersion="2.7.0.6937" ExportMode="NoUniqueID" PISystem="MEGATRON" Database="GitHub" Description="GitHub Statistics for OSIsoft organization" Created="2016-03-09T17:40:47.6681382Z" id="6167409d-e20c-11e5-82ba-f01faf0268f8" ParentKey="4dbcf310-7b99-4e5d-a07f-d9939c3220f7" ExportedObject="Configuration" ExportedType="AFElement" Identity="Element" PIPersist="162 {9895150E-085D-4fcb-A16D-5EF5D2527196} 2\{82855482-fe58-4539-af6c-daeb7228f3c2}\Elements[{6167409d-e20c-11e5-82ba-f01faf0268f8}]*MEGATRON\GitHub\Configuration">
+  <AFElement>
+    <Name>Configuration</Name>
+    <AFAttribute>
+      <Name>Name</Name>
+      <Type>String</Type>
+      <Value type="String">Megatron</Value>
+    </AFAttribute>
+    <AFElement ReferenceType="Parent-Child">
+      <Name>PI Data Archive</Name>
+      <AFAttribute>
+        <Name>Name</Name>
+        <Type>String</Type>
+        <Value type="String">megatron</Value>
+      </AFAttribute>
+    </AFElement>
+  </AFElement>
+</AF>

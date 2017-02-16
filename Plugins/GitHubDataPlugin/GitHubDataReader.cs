@@ -122,7 +122,13 @@ namespace GitHubDataPlugin
             return values;
         }
 
-
+        /// <summary>
+        /// Returns an attribute value, casted to a specific type
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="element"></param>
+        /// <param name="attributeName"></param>
+        /// <returns></returns>
         private T GetAttributeValue<T>(AFElement element, string attributeName)
         {
             return (T)element.Attributes[attributeName].GetValue().Value;

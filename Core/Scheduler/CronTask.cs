@@ -38,6 +38,7 @@ namespace DCS.Core.Scheduler
 
             // executes the task 
             _logger.Debug("Executing task : " + task.TaskName);
+            
             task._task();
         }
     }

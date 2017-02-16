@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<AF xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="OSIsoft.AF.xsd" SchemaVersion="2.0" SoftwareVersion="2.7.0.6937" ExportMode="NoUniqueID" PISystem="MEGATRON" Database="GitHub" Description="GitHub Statistics for OSIsoft organization" Created="2016-03-09T17:39:54.3967517Z" id="4dbcf310-7b99-4e5d-a07f-d9939c3220f7" ParentKey="4dbcf310-7b99-4e5d-a07f-d9939c3220f7" ExportedObject="NamedCollectionList" ExportedType="AFNamedCollectionList`1" Identity="ElementTemplate">
+  <AFElementTemplate>
+    <Name>GitHubOrg</Name>
+    <Type>None</Type>
+    <InstanceType>Element</InstanceType>
+    <AllowElementToExtend>false</AllowElementToExtend>
+    <AFAttributeTemplate>
+      <Name>GitHubCredentialToken</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>GitHubProductName</Name>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Owner</Name>
+      <Description>Name of the GitHub organisation to collect data from</Description>
+      <Type>String</Type>
+      <Value type="String">0</Value>
+      <DataReference>Formula</DataReference>
+      <AFAttributeCategoryRef>configuration</AFAttributeCategoryRef>
+    </AFAttributeTemplate>
+  </AFElementTemplate>
+  <AFElementTemplate>
+    <Name>Repository</Name>
+    <Type>None</Type>
+    <InstanceType>Element</InstanceType>
+    <AllowElementToExtend>false</AllowElementToExtend>
+    <AFAttributeTemplate>
+      <Name>Commits</Name>
+      <Description>Number of commits in the repository</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32;pointsource=GitHub;span=10000;step=1</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>CommitsPerDay</Name>
+      <Description>Calculation of the number of commits per day</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32;pointsource=GitHub;span=10000</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Contributors</Name>
+      <Description>Number of commits in the repository</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32;pointsource=GitHub;span=10000;step=1</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>CreatedAt</Name>
+      <Description>Creation date of the repository</Description>
+      <Type>DateTime</Type>
+      <Value type="DateTime">1970-01-01T00:00:00Z</Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Forks</Name>
+      <Description>Number of forks for this repository</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32;pointsource=GitHub;span=10000</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>HasDownloads</Name>
+      <Type>Boolean</Type>
+      <Value type="Boolean">False</Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>HasIssues</Name>
+      <Type>Boolean</Type>
+      <Value type="Boolean">False</Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>HasWiki</Name>
+      <Type>Boolean</Type>
+      <Value type="Boolean">False</Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Name</Name>
+      <Description>Name of the repository</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=string;pointsource=GitHub;span=10000</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Open Issues</Name>
+      <Description>Number of issues currently opened</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32;pointsource=GitHub;span=10000;step=1</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Pull Requests</Name>
+      <Description>Number of active pull requests</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32;pointsource=GitHub;span=10000</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Stars</Name>
+      <Description>Number of persons who starred the repository</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>UpdatedAt</Name>
+      <Description>Last time the repository was updated</Description>
+      <Type>DateTime</Type>
+      <Value type="DateTime">1970-01-01T00:00:00Z</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=timestamp;pointsource=GitHub;span=10000;step=1</ConfigString>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Url</Name>
+      <Description>Url of the Github Repository</Description>
+      <Type>String</Type>
+      <Value type="String"></Value>
+    </AFAttributeTemplate>
+    <AFAttributeTemplate>
+      <Name>Watchers</Name>
+      <Description>Number of people who receives notifications about repository changes</Description>
+      <Type>Int32</Type>
+      <Value type="Int32">0</Value>
+      <DataReference>PI Point</DataReference>
+      <ConfigString>\\%@\Configuration\PI Data Archive|Name%\%database%.%..\element%.%element%.%attribute%;pointtype=Int32</ConfigString>
+    </AFAttributeTemplate>
+    <AFAnalysisTemplate>
+      <Name>RepositoryCalcs</Name>
+      <Target>Repository</Target>
+      <AFAnalysisRule>
+        <AFPlugIn>PerformanceEquation</AFPlugIn>
+        <ConfigString>CommitsPerDay := TagVal('{91b80d4d-27e3-479a-996c-e988f2b3c61b};Commits','t')-TagVal('{91b80d4d-27e3-479a-996c-e988f2b3c61b};Commits','y');
+Variable1 := ;</ConfigString>
+        <VariableMapping>CommitsPerDay||CommitsPerDay;[GUID]||{1f1813e9-7a3e-4108-8817-208d5a5e236d};[GUID]||[UNSET];</VariableMapping>
+      </AFAnalysisRule>
+      <AFTimeRule>
+        <AFPlugIn>Natural</AFPlugIn>
+      </AFTimeRule>
+    </AFAnalysisTemplate>
+  </AFElementTemplate>
+</AF>

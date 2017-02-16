@@ -1,6 +1,6 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DCS.Service", "Service\DCS.Service.csproj", "{1FBEA0AD-EA46-4053-A2D3-151BB5DB49F3}"
 EndProject
@@ -22,8 +22,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Plugins", "Plugins", "{6B966D93-26C0-48F3-89AA-FE7E6D3C5694}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomDataPlugin", "Plugins\RandomDataPlugin\RandomDataPlugin.csproj", "{E0D886EC-949B-4FDA-A267-58AB910A4D41}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitBitDataPlugin", "Plugins\FitBitDataPlugin\FitBitDataPlugin.csproj", "{B31F3A47-80E8-407C-838D-626B241DF706}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubDataPlugin", "Plugins\GitHubDataPlugin\GitHubDataPlugin.csproj", "{1441D27A-C4DE-4601-9908-69186E211D3A}"
 EndProject
@@ -84,22 +82,6 @@ Global
 		{E0D886EC-949B-4FDA-A267-58AB910A4D41}.Release|x64.Build.0 = Release|Any CPU
 		{E0D886EC-949B-4FDA-A267-58AB910A4D41}.Release|x86.ActiveCfg = Release|Any CPU
 		{E0D886EC-949B-4FDA-A267-58AB910A4D41}.Release|x86.Build.0 = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|x64.Build.0 = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Debug|x86.Build.0 = Debug|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|x64.ActiveCfg = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|x64.Build.0 = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|x86.ActiveCfg = Release|Any CPU
-		{B31F3A47-80E8-407C-838D-626B241DF706}.Release|x86.Build.0 = Release|Any CPU
 		{1441D27A-C4DE-4601-9908-69186E211D3A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{1441D27A-C4DE-4601-9908-69186E211D3A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1441D27A-C4DE-4601-9908-69186E211D3A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
@@ -122,7 +104,6 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E0D886EC-949B-4FDA-A267-58AB910A4D41} = {6B966D93-26C0-48F3-89AA-FE7E6D3C5694}
-		{B31F3A47-80E8-407C-838D-626B241DF706} = {6B966D93-26C0-48F3-89AA-FE7E6D3C5694}
 		{1441D27A-C4DE-4601-9908-69186E211D3A} = {6B966D93-26C0-48F3-89AA-FE7E6D3C5694}
 	EndGlobalSection
 EndGlobal
