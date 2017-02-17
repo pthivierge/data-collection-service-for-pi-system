@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GitHubDataPlugin</RootNamespace>
     <AssemblyName>GitHubDataPlugin</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -67,6 +67,10 @@
       <Project>{de39bf39-c91d-4e1e-897f-a20e2ac7fe6e}</Project>
       <Name>DCS.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="SupportingFiles\AFElementTemplates.xml" />
+    <Content Include="SupportingFiles\BasicAFStructure.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

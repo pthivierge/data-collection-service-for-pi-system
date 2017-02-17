@@ -40,6 +40,7 @@ namespace DCS.Core
                         var applicationDirectory = Path.GetDirectoryName(Assembly.GetEntryAssembly().Location) ?? "";
                         Assembly pluginAssembly = Assembly.LoadFrom(Path.Combine(applicationDirectory,"plugins",collectorSettings.PluginFileName));
 
+
                         foreach (var type in pluginAssembly.GetTypes())
                         {
                             if (type.GetInterface(typeof (IDataCollector).Name) != null)

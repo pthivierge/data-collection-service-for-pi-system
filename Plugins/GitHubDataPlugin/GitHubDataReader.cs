@@ -15,7 +15,7 @@ using OSIsoft.AF.Time;
 namespace GitHubDataPlugin
 {
     /// <summary>
-    /// This data collector can be used to generate random data when you need to test data collection.
+    /// This Data collector Gathers data from GitHub
     /// It requires a database that contains elements based on an ElementTemplate with the following Attributes: 
     /// value:     the PI Point where the data will be written
     /// LowValue:  An integer static attribute that defines the lowest random value
@@ -67,6 +67,10 @@ namespace GitHubDataPlugin
                     // todo - validation:
                     // check if element template exist
                     // check if repository was renamed ?? maybe, not certain how to do that.
+
+
+
+
                     repoElement = new AFElement(repo.Name, orgElement.Database.ElementTemplates["repository"]);
                     orgElement.Elements.Add(repoElement);
                     orgElement.CheckIn();

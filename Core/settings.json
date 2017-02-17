@@ -13,7 +13,7 @@
       "AFElementTemplateName": "GitHubOrg",
       "DataCollectionPeriod": "0 0/5 * * * ?",
       "ExtendedSettings": {
-        "info": "you can use this object to custom settings to your plugin",
+        "info": "you can use this object to pass custom settings to your plugin",
         "setting": 0
       }
     },
