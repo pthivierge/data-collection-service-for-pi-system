@@ -16,27 +16,27 @@ namespace DCS.Service
 {
     internal static class Program
     {
-        private static readonly ILog _logger = LogManager.GetLogger(typeof (Program));
+        private static readonly ILog _logger = LogManager.GetLogger(typeof(Program));
 
         /// <summary>
         ///     Service Main Entry Point
         /// </summary>
         private static void Main(string[] args)
         {
-           
+
             AppDomain.CurrentDomain.UnhandledException += CurrentDomainUnhandledException;
 
             if (Environment.UserInteractive)
             {
                 _logger.Info("Starting service interractively");
-                
+
                 var options = new CommandLineOptions();
 
                 if (Parser.Default.ParseArguments(args, options))
                 {
                     if (options.Run)
                     {
-                        if(!Config.IsLoaded())
+                        if (!Config.IsLoaded())
                             Environment.Exit(-1);
 
                         WebHost.Instance.Start();
@@ -73,7 +73,16 @@ namespace DCS.Service
                                         if (type.GetInterface(typeof(IDataCollector).Name) != null)
                                         {
                                             var newCollector = Activator.CreateInstance(type) as IDataCollector;
-                                            if (newCollector != null)
+                                            var isValidDataCollector = true;
+
+                                            // performs an additional test, when a plugin class name is provided
+                                            if (collectorSettings.PluginClassName != null && newCollector != null)
+                                            {
+                                                isValidDataCollector = collectorSettings.PluginClassName == newCollector.GetType().Name;
+                                            }
+
+                                            if (newCollector != null && isValidDataCollector)
+
                                             {
                                                 newCollector.SetSettings(collectorSettings);
                                                 newCollector.Inititialize();
@@ -81,6 +90,7 @@ namespace DCS.Service
                                             }
                                             else
                                             {
+
                                                 _logger.Error("Data Collector could not be loaded");
                                             }
                                         }
@@ -95,6 +105,8 @@ namespace DCS.Service
 
                             dataWriter.FlushData();
 
+                            Console.WriteLine("Test completed, press a key to exit");
+                            Console.ReadKey();
                         }
                     }
 
@@ -108,14 +120,14 @@ namespace DCS.Service
                         ManagedInstallerClass.InstallHelper(new[] { "/u", Assembly.GetExecutingAssembly().Location });
                     }
 
-                    
+
 
                     // exit ok
                     Environment.Exit(0);
-                    
+
                 }
 
-                
+
             }
             else
             {
@@ -130,8 +142,8 @@ namespace DCS.Service
         private static void CurrentDomainUnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             _logger.Error(e.ExceptionObject);
-            
-            
+
+
         }
     }
 }

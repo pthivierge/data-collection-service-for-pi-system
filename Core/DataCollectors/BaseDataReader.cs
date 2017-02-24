@@ -107,12 +107,12 @@ namespace DCS.Core.DataReaders
     }
 
 
-    public class DataReaderCouldNotInitialize : Exception
+    public class DataReaderCouldNotInitialize : ApplicationException
     {
         public DataReaderCouldNotInitialize() : base("Initialization failed.  You may verify the configuration and look at messages returned by the exception.") { }
     }
 
-    public class AFElementTemplateDoNotExistException : Exception
+    public class AFElementTemplateDoNotExistException : ApplicationException
     {
         public AFElementTemplateDoNotExistException() : base("The AF Element Template specified does not exist in the AF Database") { }
     }
