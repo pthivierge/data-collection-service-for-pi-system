@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using DCS.Core.Configuration;
 using DCS.Core.DataCollectors;
@@ -29,7 +30,7 @@ namespace DCS.Core
 
 
             // Here are added the configured data collectors
-            foreach (DataCollectorSettings collectorSettings in Config.Settings.DataCollectorsSettings)
+            foreach (DataCollectorSettings collectorSettings in Config.Settings.DataCollectorsSettings.Where(c=>c.LoadPlugin==1))
             {
 
                 try
@@ -43,10 +44,20 @@ namespace DCS.Core
 
                         foreach (var type in pluginAssembly.GetTypes())
                         {
+
+
                             if (type.GetInterface(typeof (IDataCollector).Name) != null)
                             {
                                 var newCollector = Activator.CreateInstance(type) as IDataCollector;
-                                if (newCollector != null)
+                                var isValidDataCollector = true;
+
+                                // performs an additional test, when a plugin class name is provided
+                                if (collectorSettings.PluginClassName != null)
+                                {
+                                    isValidDataCollector = collectorSettings.PluginClassName == newCollector.GetType().Name;
+                                }
+
+                                if (newCollector != null && isValidDataCollector)
                                 {
                                     newCollector.SetSettings(collectorSettings);
                                 
@@ -54,10 +65,7 @@ namespace DCS.Core
                                     _scheduler.AddTask(collectorSettings.ReaderTaskDescription, collectorSettings.DataCollectionPeriod, new Action(newCollector.CollectData));
                                     DataReadersManager.DataReaders.Add(newCollector);
                                 }
-                                else
-                                {
-                                    _logger.Error("Data Collector could not be loaded");
-                                }
+
                             }
                         }
                     

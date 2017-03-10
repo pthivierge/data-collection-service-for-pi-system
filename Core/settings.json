@@ -4,12 +4,14 @@
     "CronPeriod_ConfigurationRefresh": "0 5 * * * ?",
     "WebConfigPort": "9999"
   },
-  "DataCollectorsSettings": [
-    {
-      "PluginFileName": "GitHubDataPlugin\\GitHubDataPlugin.dll",
+  "DataCollectorsSettings": 
+  [{
+     "LoadPlugin": 1, 
+     "PluginFileName": "GitHubDataPlugin\\GitHubDataPlugin.dll",
+      "PluginClassName": "GitHubDataReader",
       "ReaderTaskDescription": "Collect data from a GitHub Organisation",
-      "AFServerName": "megatron",
-      "AFDatabaseName": "DCSTestDB",
+      "AFServerName": "optimus",
+      "AFDatabaseName": "GitHub",
       "AFElementTemplateName": "GitHubOrg",
       "DataCollectionPeriod": "0 0/5 * * * ?",
       "ExtendedSettings": {
@@ -18,6 +20,21 @@
       }
     },
     {
+      "LoadPlugin": 1, 
+      "PluginFileName": "GitHubDataPlugin\\GitHubDataPlugin.dll",
+      "PluginClassName": "GitHubTraffic",
+      "ReaderTaskDescription": "Collect traffic data for each repository",
+      "AFServerName": "optimus",
+      "AFDatabaseName": "GitHub",
+      "AFElementTemplateName": "GitHubOrg",
+      "DataCollectionPeriod": "0 0 0 * * ?",
+      "ExtendedSettings": {
+        "info": "you can use this object to pass custom settings to your plugin",
+        "setting": 0
+      }
+    }
+
+    /*    ,{
       "PluginFileName": "RandomDataPlugin\\RandomDataPlugin.dll",
       "ReaderTaskDescription": "Returns random data",
       "AFServerName": "megatron",
@@ -25,6 +42,7 @@
       "AFElementTemplateName": "Random",
       "DataCollectionPeriod": "0/10 * * * * ?"
     }
+*/
   ],
   "DebugSettings": {
     "StartDebuggerOnStart": false

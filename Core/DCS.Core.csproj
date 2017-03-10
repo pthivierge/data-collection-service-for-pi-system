@@ -135,8 +135,6 @@
     <Compile Include="SharedData.cs" />
     <Compile Include="DataWriter.cs" />
     <Compile Include="Helpers\ExtensionMethods.cs" />
-    <Compile Include="Helpers\General.cs" />
-    <Compile Include="Helpers\PropertySorter.cs" />
     <Compile Include="Helpers\Serializer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Helpers\IniFile.cs" />
