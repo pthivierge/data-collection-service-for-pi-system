@@ -20,7 +20,10 @@ namespace DCS.Core.Configuration
 
     public class DataCollectorSettings
     {
+
+        public int LoadPlugin { get; set; }
         public string PluginFileName { get; set; }
+        public string PluginClassName { get; set; }
         public string ReaderTaskDescription { get; set; }
         public string AFDatabaseName { get; set; }
         public string AFElementTemplateName { get; set; }
