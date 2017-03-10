@@ -43,6 +43,7 @@ namespace DCS.Core
             while (SharedData.DataWriterQueue.TryDequeue(out values))
             {
                 if(values!=null)
+
                     allValues.AddRange(values);
             }
 
@@ -53,7 +54,7 @@ namespace DCS.Core
                 _logger.InfoFormat("Sorting and writing {0} values.", allValues.Count);
                 // writing into PI : we sort all the values per timestamp, that will make life easier for the PI Server
                 allValues.Sort();
-                AFListData.UpdateValues(allValues, AFUpdateOption.Replace, AFBufferOption.BufferIfPossible);
+                AFListData.UpdateValues(allValues, AFUpdateOption.NoReplace, AFBufferOption.BufferIfPossible);
 
                 // clear the values
                 allValues.Clear();
