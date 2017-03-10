@@ -40,10 +40,6 @@
       <HintPath>..\..\packages\log4net.2.0.5\lib\net45-full\log4net.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Octokit, Version=0.24.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\packages\Octokit.0.24.0\lib\net45\Octokit.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="OSIsoft.AFSDK, Version=4.0.0.0, Culture=neutral, PublicKeyToken=6238be57836698e6, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -55,6 +51,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GitHubCommon.cs" />
+    <Compile Include="GitHubDataPluginExceptions.cs" />
+    <Compile Include="PluginParams.cs" />
+    <Compile Include="GitHubTraffic.cs" />
     <Compile Include="GitHubDataReader.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -63,14 +63,18 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\..\octokit.net\Octokit\Octokit.csproj">
+      <Project>{08dd4305-7787-4823-a53f-4d0f725a07f3}</Project>
+      <Name>Octokit</Name>
+    </ProjectReference>
     <ProjectReference Include="..\..\Core\DCS.Core.csproj">
       <Project>{de39bf39-c91d-4e1e-897f-a20e2ac7fe6e}</Project>
       <Name>DCS.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="SupportingFiles\AFElementTemplates.xml" />
     <Content Include="SupportingFiles\BasicAFStructure.xml" />
+    <Content Include="SupportingFiles\GitHub-AFElementTemplates.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

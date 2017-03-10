@@ -1,8 +1,7 @@
 #data-collection-service-for-pi-system
 
-This project is a prototype built intitially to read data from the **Fitbit API** Web Service. It was completely refactored and is now built with a plugin model so more data sources can be supported.
+This project consist of a service to perform data collection for the PI System.  It has 
 
-The FitBit data collector have not been updated after the refactoring so code is commented out.  If you need it you could use commented code to rewrite it in the new way.
 
 # How it works?
 

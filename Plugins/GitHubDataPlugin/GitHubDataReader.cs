@@ -1,13 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading;
 using DCS.Core.Configuration;
 using DCS.Core.DataCollectors;
 using DCS.Core.DataReaders;
+using DCS.Core.Helpers;
 using Octokit;
 using OSIsoft.AF;
 using OSIsoft.AF.Asset;
+using OSIsoft.AF.Search;
 using OSIsoft.AF.Time;
 
 
@@ -29,63 +32,51 @@ namespace GitHubDataPlugin
 
         DataCollectorSettings _settings;
 
+        
 
         public override List<AFValue> ReadValues(AFElement orgElement)
         {
+            
+            var settings = GitHubCommon.GetAFSettings(orgElement);
+            var github = GitHubCommon.GetGitHubClient(settings);
 
-            AFElement repoElement;
-
-            //getting repository settings from the element:
-            var owner = GetAttributeValue<string>(orgElement, "Owner");
-            var gitHubCredentialToken = GetAttributeValue<string>(orgElement, "GitHubCredentialToken");
-            var gitHubProductName = GetAttributeValue<string>(orgElement, "GitHubProductName");
-
-            if (string.IsNullOrEmpty(gitHubCredentialToken) || string.IsNullOrEmpty(gitHubProductName))
-                throw new GitHubDataCollectorHasInvalidConfiguration();
-
-            var github = new GitHubClient(new ProductHeaderValue(gitHubProductName));
-            github.Connection.Credentials = new Credentials(gitHubCredentialToken);
-
-            // Checking the rate limit
-            var rateLimit = github.Miscellaneous.GetRateLimits().Result.Resources.Core;
-            if (rateLimit.Remaining <= 10)
-            {
-                Logger.WarnFormat("Current rate limit exceeded. Only {0} left. Will reset at:{1}", rateLimit.Remaining, rateLimit.Reset);
+            if (GitHubCommon.isGitHubRateLimitExceeded(github))
                 return new List<AFValue>();
-            }
 
 
-            // Read values from GitHub
-            var repos = github.Repository.GetAllForOrg(owner).Result;
+            // Read repositories from GitHub
+            var repos = github.Repository.GetAllForOrg(settings.GitHubOwner).Result;
 
             var values = new List<AFValue>();
+
+            // for each repository, we create it if it does not exist and we retrieve repo values in AF
             foreach (var repo in repos)
             {
+               
+                var targetRepoElement = GitHubCommon.FindRepositoryById(orgElement, settings, repo.Id.ToString());
 
-                if (!orgElement.Elements.Contains(repo.Name))
+                AFElement repoElement;
+                if (targetRepoElement.Count == 0)
                 {
-                    // todo - validation:
-                    // check if element template exist
-                    // check if repository was renamed ?? maybe, not certain how to do that.
-
-
-
-
-                    repoElement = new AFElement(repo.Name, orgElement.Database.ElementTemplates["repository"]);
+                    // create new repo element
+                    repoElement = new AFElement(repo.Name, settings.RepositoryTemplate);
                     orgElement.Elements.Add(repoElement);
                     orgElement.CheckIn();
-                    
-                    var newTags=AFDataReference.CreateConfig(orgElement, true, (obj, afProgressEventArgs) =>
-                        {
-                           // here report progess
-                        });
-                    Logger.InfoFormat("{1} Tags Created for new element {0}", repoElement.Name,newTags);
 
+                    GitHubCommon.CreateTags(repoElement);
                 }
+
                 else
                 {
-                    repoElement = orgElement.Elements[repo.Name];
+                    // update
+                    repoElement = targetRepoElement[0];
                 }
+
+
+                // if name has changed, we rename the element, we keep track of the repository by ids, so we can do that
+                // it makes the AF structure easier to navigate
+                if (repoElement.Name != repo.Name)
+                    repoElement.Name = repo.Name;
 
                 // pull requests
                 var pullRequests = github.PullRequest.GetAllForRepository(repo.Owner.Login, repo.Name);
@@ -96,9 +87,12 @@ namespace GitHubDataPlugin
                 var contributorsCount = contributors.Result.Count;
                 var totalCommits = contributors.Result.ToList().Sum(contributor => contributor.Total);
 
+
                 //Create AFValues based on the GitHub Readings      
                 values.AddRange(new List<AFValue>()
                     {
+
+                        new AFValue(repoElement.Attributes["Repository Id"], repo.Id, AFTime.Now),
                         new AFValue(repoElement.Attributes["Commits"], totalCommits, AFTime.Now),
                         new AFValue(repoElement.Attributes["Contributors"], contributorsCount, AFTime.Now),
                         new AFValue(repoElement.Attributes["Forks"], repo.ForksCount, AFTime.Now),
@@ -111,10 +105,10 @@ namespace GitHubDataPlugin
                         new AFValue(repoElement.Attributes["HasIssues"], repo.HasIssues, AFTime.Now),
                         new AFValue(repoElement.Attributes["Open Issues"], repo.OpenIssuesCount, AFTime.Now),
                         new AFValue(repoElement.Attributes["HasWiki"], repo.HasWiki, AFTime.Now),
-                        new AFValue(repoElement.Attributes["Watchers"], github.Activity.Watching.GetAllWatchers(owner,repo.Name).Result.Count, AFTime.Now),
+                        new AFValue(repoElement.Attributes["Watchers"], github.Activity.Watching.GetAllWatchers(settings.GitHubOwner,repo.Name).Result.Count, AFTime.Now),
                     }
                 );
-                if (GetAttributeValue<DateTime>(repoElement, "CreatedAt") <= new DateTime(1970, 1, 1))
+                if (AFSDKHelpers.GetAttributeValue<DateTime>(repoElement, "CreatedAt") <= new DateTime(1970, 1, 1))
                 {
                     values.Add(new AFValue(repoElement.Attributes["CreatedAt"], repo.CreatedAt.LocalDateTime, AFTime.Now));
                 }
@@ -126,17 +120,8 @@ namespace GitHubDataPlugin
             return values;
         }
 
-        /// <summary>
-        /// Returns an attribute value, casted to a specific type
-        /// </summary>
-        /// <typeparam name="T"></typeparam>
-        /// <param name="element"></param>
-        /// <param name="attributeName"></param>
-        /// <returns></returns>
-        private T GetAttributeValue<T>(AFElement element, string attributeName)
-        {
-            return (T)element.Attributes[attributeName].GetValue().Value;
-        }
+      
+
 
         public DataCollectorSettings GetSettings()
         {
@@ -155,8 +140,4 @@ namespace GitHubDataPlugin
 
     }
 
-    public class GitHubDataCollectorHasInvalidConfiguration : Exception
-    {
-        public GitHubDataCollectorHasInvalidConfiguration() : base("The collector could not initialize because the settings were not valid.") { }
-    }
 }

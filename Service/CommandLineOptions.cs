@@ -21,6 +21,8 @@ namespace DCS
         [Option('t',"test",HelpText = "Execute the ReadValues call for each reader, only one time.  You may use that for testing.",MutuallyExclusiveSet = "SingleAction")]
         public bool Test { get; set; }
 
+        [Option('s', "stats", HelpText = ".", MutuallyExclusiveSet = "SingleAction")]
+        public bool Stats { get; set; }
 
 
         [HelpOption]

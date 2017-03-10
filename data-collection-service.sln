@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RandomDataPlugin", "Plugins
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitHubDataPlugin", "Plugins\GitHubDataPlugin\GitHubDataPlugin.csproj", "{1441D27A-C4DE-4601-9908-69186E211D3A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octokit", "..\octokit.net\Octokit\Octokit.csproj", "{08DD4305-7787-4823-A53F-4D0F725A07F3}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -98,6 +100,22 @@ Global
 		{1441D27A-C4DE-4601-9908-69186E211D3A}.Release|x64.Build.0 = Release|Any CPU
 		{1441D27A-C4DE-4601-9908-69186E211D3A}.Release|x86.ActiveCfg = Release|Any CPU
 		{1441D27A-C4DE-4601-9908-69186E211D3A}.Release|x86.Build.0 = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|x64.Build.0 = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Debug|x86.Build.0 = Debug|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|x64.ActiveCfg = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|x64.Build.0 = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|x86.ActiveCfg = Release|Any CPU
+		{08DD4305-7787-4823-A53F-4D0F725A07F3}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
