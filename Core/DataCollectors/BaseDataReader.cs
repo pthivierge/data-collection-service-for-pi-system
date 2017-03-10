@@ -83,13 +83,15 @@ namespace DCS.Core.DataReaders
             if(_afElementsQueue.Count==0)
             { 
                 Logger.InfoFormat("Data collection cannot proceed, there is not AF Element loaded yet.");
+                return;
             }
 
 
             Parallel.ForEach(_afElementsQueue, new ParallelOptions() {MaxDegreeOfParallelism = 10 }, (element) =>
             {
                var values=ReadValues(element);
-               SharedData.DataWriterQueue.Enqueue(values);
+                if(values!=null)
+                    SharedData.DataWriterQueue.Enqueue(values);
             });
 
             Logger.DebugFormat("Data collection cycle completed");
