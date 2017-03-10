@@ -14,6 +14,13 @@ namespace DCS.Core.Helpers
     {
         static readonly ILog _logger = LogManager.GetLogger(typeof(DataReadersManager));
 
+
+
+        public static T GetAttributeValue<T>(AFElement element, string attributeName)
+        {
+            return (T)element.Attributes[attributeName].GetValue().Value;
+        }
+
         /// <summary>
         /// Loads Elements from an AF Database in a manner that is not blocking the application
         /// and is more efficient with big databases
