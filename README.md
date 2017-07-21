@@ -1,4 +1,4 @@
-#data-collection-service-for-pi-system
+# data-collection-service-for-pi-system
 
 This project consist of a service to perform data collection for the PI System.  It has 
 
@@ -18,7 +18,7 @@ The code is not yet fully optimized, configuration manager refresh has yet to be
 But it implements some strategies for better performances with the PI System. ( bulk load of elements, time ordered and bulk writes)
 
 
-#What is in the solution? 
+# What is in the solution? 
 
 + The business code logic needs to be written in the Core dll.
 
@@ -27,7 +27,7 @@ But it implements some strategies for better performances with the PI System. ( 
 + After compiling:  use the /Build folder in the first level directory level to test the application.
 
 
-#License
+# License
  
     Copyright 2015 Patrice Thivierge Fortin
  
